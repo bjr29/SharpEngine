@@ -70,36 +70,28 @@ namespace SharpEngineGOL {
         private static int SurroundingCells(int x, int y) {
             int i = 0;
 
-            if (x > 0 && y > 0 &&
-                World[x - 1, y - 1])
+            if (x > 0 && y > 0 && World[x - 1, y - 1])
                 i++;    // Top Left
 
-            if (y > 0 &&
-                World[x, y - 1])
+            if (y > 0 && World[x, y - 1])
                 i++;    // Top Middle
 
-            if (x < World.GetLength(0) - 1 && y > 0 &&
-                World[x + 1, y - 1])
+            if (x < World.GetLength(0) - 1 && y > 0 && World[x + 1, y - 1])
                 i++;    // Top Right
 
-            if (x < World.GetLength(0) - 1 &&
-                World[x + 1, y])
+            if (x < World.GetLength(0) - 1 && World[x + 1, y])
                 i++;    // Middle Right
 
-            if (x < World.GetLength(0) - 1 && y < World.GetLength(1) - 1 &&
-                World[x + 1, y + 1])
+            if (x < World.GetLength(0) - 1 && y < World.GetLength(1) - 1 && World[x + 1, y + 1])
                 i++;    // Bottom Right
 
-            if (y < World.GetLength(1) - 1 &&
-                World[x, y + 1])
+            if (y < World.GetLength(1) - 1 && World[x, y + 1])
                 i++;    // Bottom Middle
 
-            if (x > 0 && y < World.GetLength(1) - 1 &&
-                World[x - 1, y + 1])
+            if (x > 0 && y < World.GetLength(1) - 1 && World[x - 1, y + 1])
                 i++;    // Bottom Left
 
-            if (x > 0 &&
-                World[x - 1, y])
+            if (x > 0 && World[x - 1, y])
                 i++;    // Middle Left
 
             return i;
