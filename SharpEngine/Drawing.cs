@@ -82,13 +82,6 @@ namespace SharpEngine {
                 flips
             );
 
-            /*_ = SDL_RenderCopyF(
-                Engine.Window.RendererPtr,
-                texture.TexturePtr,
-                IntPtr.Zero,
-                ref rect
-            );*/
-
             Debug.ErrorCheckSDL();
         }
     }

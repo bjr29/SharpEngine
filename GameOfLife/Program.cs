@@ -2,11 +2,10 @@
 using SharpEngine;
 
 namespace SharpEngineGOL {
-    class Program {
+    static class Program {
         private static bool[,] World { get; set; } = new bool[256, 256];
         private static bool Paused { get; set; }
         private static int CellSize { get; set; } = 8;
-        //private static IntVector2 Pan = new();
 
         static void Main(string[] args) {
             Engine.Init();

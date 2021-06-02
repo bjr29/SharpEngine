@@ -1,5 +1,7 @@
-﻿namespace SharpEngine {
-    public struct Colour {
+﻿using System;
+
+namespace SharpEngine {
+    public struct Colour : IEquatable<Colour> {
         #region Properties
         /// <summary>
         /// Red
@@ -44,6 +46,14 @@
             G = all;
             B = all;
             A = a;
+        }
+
+        #region Implemented Methods
+        public bool Equals(Colour other) {
+            if (other.R == R && other.G == G && other.B == B && other.A == A)
+                return true;
+
+            return false;
         }
         #endregion
     }

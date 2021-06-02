@@ -178,6 +178,8 @@ namespace SharpEngine {
 
                     break;
 
+                default:
+                    break;
             }
         }
         #endregion

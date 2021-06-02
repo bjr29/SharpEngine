@@ -66,8 +66,6 @@ namespace SharpEngine {
 
             if (throwException)
                 throw new SDL_Exception(error);
-
-            return;
         }
         #endregion
     }

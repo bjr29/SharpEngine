@@ -2,7 +2,7 @@
 using SharpEngine;
 
 namespace MovingPlayer {
-    class Program {
+    static class Program {
         private const int MOVEMENT_SPEED = 100;
 
         private static Vector2 Position { get; set; }
@@ -11,7 +11,7 @@ namespace MovingPlayer {
         static void Main(string[] args) {
             Engine.Init();
 
-            Engine.Window = new();
+            Engine.Window = new(title: "Sharp Engine Test - Moving Player");
 
             Engine.Ready += Engine_Ready;
             Engine.Draw += Engine_Draw;
