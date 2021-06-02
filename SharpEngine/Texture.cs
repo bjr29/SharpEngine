@@ -15,7 +15,9 @@ namespace SharpEngine {
             get => _Path;
             set {
                 _Path = value;
+
                 TexturePtr = IMG_LoadTexture(Engine.Window.RendererPtr, _Path);
+                Debug.ErrorCheckSDL();
             }
         }
 
@@ -30,7 +32,7 @@ namespace SharpEngine {
         /// </summary>
         /// <param name="path">The texture's image path.</param>
         public Texture(string path) {
-            _Path = path;
+            Path = path;
         }
         #endregion
 

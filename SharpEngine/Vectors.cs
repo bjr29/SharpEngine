@@ -96,8 +96,8 @@ namespace SharpEngine {
 
         public override string ToString() => $"{X},{Y}";
 
-        internal static SDL_FRect ToSDL_FRect(Vector2 point1, Vector2 point2) =>
-            new() { x = (int)point1.X, y = (int)point1.Y, w = (int)point2.X, h = (int)point2.Y };
+        internal static SDL_FRect ToSDL_FRect(Vector2 position, Vector2 size) =>
+            new() { x = (int)position.X, y = (int)position.Y, w = (int)size.X, h = (int)size.Y };
         #endregion
     }
 

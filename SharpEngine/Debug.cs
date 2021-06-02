@@ -1,5 +1,6 @@
 ﻿using System;
 using static SDL2.SDL;
+using static SDL2.SDL_image;
 
 namespace SharpEngine {
     /// <summary>
@@ -17,8 +18,8 @@ namespace SharpEngine {
         public static ConsoleColor ErrorMessageForeground { get; set; } = DefaultBackground;
         public static ConsoleColor SDL_ErrorNotificationBackground { get; set; } = ConsoleColor.DarkRed;
         public static ConsoleColor SDL_ErrorNotificationForeground { get; set; } = ConsoleColor.White;
-        public static ConsoleColor SDL_ErrorMessageBackground { get; set; } = ConsoleColor.Red;
-        public static ConsoleColor SDL_ErrorMessageForeground { get; set; } = DefaultForeground;
+        public static ConsoleColor SDL_ErrorMessageBackground { get; set; } = SDL_ErrorNotificationBackground;
+        public static ConsoleColor SDL_ErrorMessageForeground { get; set; } = SDL_ErrorNotificationForeground;
         #endregion
 
         #region Methods
@@ -43,36 +44,30 @@ namespace SharpEngine {
             Console.Write($"{displayedMessage}{end}");
         }
 
-        internal static void ErrorCheckSDL(bool throwException = true, bool reportNegatives = false, string negativeResponse = "") {
+        internal static void ErrorCheckSDL(bool throwException = true) {
             string error = SDL_GetError();
+            string imgError = IMG_GetError();
 
-            if (error == "" && !reportNegatives)
-                return;
-
-            if (!reportNegatives) {
-                Console.Write(DateTime.Now.ToLongTimeString());
-                Console.BackgroundColor = SDL_ErrorNotificationBackground;
-                Console.ForegroundColor = SDL_ErrorNotificationForeground;
-                Console.Write(" [SDL_ERR] ");
-                Console.BackgroundColor = SDL_ErrorMessageBackground;
-                Console.ForegroundColor = SDL_ErrorMessageForeground;
-                Console.WriteLine(error);
-                Console.BackgroundColor = DefaultBackground;
-                Console.ForegroundColor = DefaultForeground;
-
-                if (throwException)
-                    throw new SDL_Exception(error);
-
-                return;
-            }
+            if (error == "")
+                if (imgError == "")
+                    return;
+                else
+                    error = imgError;
 
             Console.Write(DateTime.Now.ToLongTimeString());
-            Console.BackgroundColor = LogNotificationBackground;
-            Console.ForegroundColor = LogNotificationForeground;
-            Console.Write(" [SDL] ");
+            Console.BackgroundColor = SDL_ErrorNotificationBackground;
+            Console.ForegroundColor = SDL_ErrorNotificationForeground;
+            Console.Write(" [SDL_ERR] ");
+            Console.BackgroundColor = SDL_ErrorMessageBackground;
+            Console.ForegroundColor = SDL_ErrorMessageForeground;
+            Console.WriteLine(error);
             Console.BackgroundColor = DefaultBackground;
             Console.ForegroundColor = DefaultForeground;
-            Console.WriteLine(negativeResponse);
+
+            if (throwException)
+                throw new SDL_Exception(error);
+
+            return;
         }
         #endregion
     }

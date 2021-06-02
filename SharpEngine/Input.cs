@@ -136,7 +136,7 @@ namespace SharpEngine {
 
                 case SDL_EventType.SDL_KEYUP:
                     LastKeyUp = SDL_GetKeyName(@event.key.keysym.sym);
-                    KeysDown[LastKeyDown] = false;
+                    KeysDown[LastKeyUp] = false;
 
                     KeyUp?.Invoke(null, new KeyPressedEventArgs(LastKeyUp));
 

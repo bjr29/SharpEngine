@@ -55,16 +55,41 @@ namespace SharpEngine {
         }
 
         /// <summary>
-        /// Draws a texture
+        /// Draws a texture.
         /// </summary>
         /// <param name="texture">The texture to show.</param>
         /// <param name="position">The top left of the texture.</param>
         /// <param name="size">The size of the texture.</param>
-        public static void DrawTexture(Texture texture, Vector2 position, Vector2 size) {
+        public static void DrawTexture(Texture texture, Vector2 position, Vector2 size, float rotation = 0,
+                bool flipHorizontal = false, bool flipVertical = false) {
             SDL_FRect rect = Vector2.ToSDL_FRect(position, size);
-            SDL_Rect emptyRect = new();
 
-            _ = SDL_RenderCopyF(Engine.Window.RendererPtr, texture.TexturePtr, ref emptyRect, ref rect);
+            SDL_RendererFlip flips = SDL_RendererFlip.SDL_FLIP_NONE;
+
+            if (flipHorizontal)
+                flips |= SDL_RendererFlip.SDL_FLIP_HORIZONTAL;
+
+            if (flipVertical)
+                flips |= SDL_RendererFlip.SDL_FLIP_VERTICAL;
+
+            _ = SDL_RenderCopyExF(
+                Engine.Window.RendererPtr,
+                texture.TexturePtr,
+                IntPtr.Zero,
+                ref rect,
+                rotation,
+                IntPtr.Zero,
+                flips
+            );
+
+            /*_ = SDL_RenderCopyF(
+                Engine.Window.RendererPtr,
+                texture.TexturePtr,
+                IntPtr.Zero,
+                ref rect
+            );*/
+
+            Debug.ErrorCheckSDL();
         }
     }
 }

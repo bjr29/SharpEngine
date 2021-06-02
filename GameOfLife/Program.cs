@@ -24,6 +24,7 @@ namespace SharpEngineGOL {
 
         private static void Ready(object sender, EventArgs e) {
             Engine.MaxFPS = 10;
+            Engine.EnforceFPSCap = true;
         }
 
         private static void Draw(object sender, EventArgs e) {

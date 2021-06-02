@@ -16,6 +16,10 @@ namespace SharpEngine {
         /// </summary>
         public static int MaxFPS { get; set; }
         /// <summary>
+        /// Caps the FPS to MaxFPS.
+        /// </summary>
+        public static bool EnforceFPSCap { get; set; }
+        /// <summary>
         /// The current FPS.
         /// </summary>
         public static int FPS { get; private set; }
@@ -66,7 +70,7 @@ namespace SharpEngine {
             DateTime frameStart = DateTime.Now;
 
             while (true) {
-                if (FPS <= MaxFPS) {
+                if (!EnforceFPSCap || FPS <= MaxFPS) {
                     frameStart = DateTime.Now;
 
                     if (HandleEvents() == HandleEventReturn.Quit)
