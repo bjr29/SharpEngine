@@ -1,8 +1,7 @@
-﻿using System;
-using static SDL2.SDL;
+﻿using static SDL2.SDL;
 
 namespace SharpEngine {
-    public struct Vector2 : IEquatable<Vector2>, IEquatable<IntVector2> {
+    public struct Vector2 {
         #region Constants/ readonlys
         /// <summary>
         /// 0, 1
@@ -100,25 +99,9 @@ namespace SharpEngine {
         internal static SDL_FRect ToSDL_FRect(Vector2 position, Vector2 size) =>
             new() { x = (int)position.X, y = (int)position.Y, w = (int)size.X, h = (int)size.Y };
         #endregion
-
-        #region Implemented Methods
-        public bool Equals(Vector2 other) {
-            if (other.X == X && other.Y == Y)
-                return true;
-
-            return false;
-        }
-
-        public bool Equals(IntVector2 other) {
-            if (other.X == X && other.Y == Y)
-                return true;
-
-            return false;
-        }
-        #endregion
     }
 
-    public struct IntVector2 : IEquatable<Vector2>, IEquatable<IntVector2> {
+    public struct IntVector2 {
         #region Constants/ readonlys
         /// <summary>
         /// 0, 1
@@ -205,22 +188,6 @@ namespace SharpEngine {
 
         internal static SDL_Rect ToSDL_Rect(IntVector2 point1, IntVector2 point2) =>
             new() { x = point1.X, y = point1.Y, w = point2.X, h = point2.Y};
-        #endregion
-
-        #region Implemented Methods
-        public bool Equals(Vector2 other) {
-            if (other.X == X && other.Y == Y)
-                return true;
-
-            return false;
-        }
-
-        public bool Equals(IntVector2 other) {
-            if (other.X == X && other.Y == Y)
-                return true;
-
-            return false;
-        }
         #endregion
     }
 }

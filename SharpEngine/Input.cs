@@ -177,9 +177,6 @@ namespace SharpEngine {
                     MouseWheelScrolled?.Invoke(null, new MouseWheelEventArgs(ScrollWheel));
 
                     break;
-
-                default:
-                    break;
             }
         }
         #endregion

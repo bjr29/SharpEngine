@@ -1,7 +1,9 @@
-﻿using System;
+﻿using SDL2;
+using System;
+using static SDL2.SDL;
 
 namespace SharpEngine {
-    public struct Colour : IEquatable<Colour> {
+    public struct Colour {
         #region Properties
         /// <summary>
         /// Red
@@ -41,21 +43,14 @@ namespace SharpEngine {
         /// </summary>
         /// <param name="all">The combination of all red, green and blue.</param>
         /// <param name="a">Alpha (opacity)</param>
-        public Colour(byte all = 255, byte a = 255) {
+        public Colour(byte all, byte a = 255) {
             R = all;
             G = all;
             B = all;
             A = a;
         }
-        #endregion
 
-        #region Implemented Methods
-        public bool Equals(Colour other) {
-            if (other.R == R && other.G == G && other.B == B && other.A == A)
-                return true;
-
-            return false;
-        }
+        internal SDL_Color ToSDL_Color() => new() { r = R, g = G, b = B, a = A };
         #endregion
     }
 }

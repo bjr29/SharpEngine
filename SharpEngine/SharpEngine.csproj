@@ -9,6 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="SDL2-CS">
       <HintPath>..\..\SDL2-CS-master\bin\Debug\SDL2-CS.dll</HintPath>
     </Reference>

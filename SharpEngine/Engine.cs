@@ -1,5 +1,7 @@
 ﻿using System;
 using static SDL2.SDL;
+using static SDL2.SDL_image;
+using static SDL2.SDL_ttf;
 
 namespace SharpEngine {
     /// <summary>
@@ -22,7 +24,7 @@ namespace SharpEngine {
         /// <summary>
         /// The current FPS.
         /// </summary>
-        public static int FPS { get; private set; }
+        public static float FPS { get; private set; }
         /// <summary>
         /// The lasts frame's delta in seconds.
         /// </summary>
@@ -57,6 +59,8 @@ namespace SharpEngine {
         /// </summary>
         public static void Init() {
             _ = SDL_Init(SDL_INIT_EVERYTHING);
+            _ = IMG_Init(IMG_InitFlags.IMG_INIT_JPG | IMG_InitFlags.IMG_INIT_PNG);
+            _ = TTF_Init();
 
             Debug.ErrorCheckSDL();
         }
@@ -83,7 +87,7 @@ namespace SharpEngine {
 
                 DateTime frameEnd = DateTime.Now;
                 DeltaTime = (float)(frameEnd - frameStart).TotalSeconds;
-                FPS = (int)(1 / DeltaTime);
+                FPS = 1 / DeltaTime;
             }
 
             Close();
@@ -93,6 +97,9 @@ namespace SharpEngine {
             Stopping?.Invoke(null, new());
 
             Window.Dispose();
+
+            IMG_Quit();
+            TTF_Quit();
             SDL_Quit();
         }
 
