@@ -47,6 +47,7 @@ namespace SharpEngine {
             B = all;
             A = a;
         }
+        #endregion
 
         #region Implemented Methods
         public bool Equals(Colour other) {
