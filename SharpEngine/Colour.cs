@@ -1,8 +1,9 @@
-﻿using SDL2;
-using System;
-using static SDL2.SDL;
+﻿using static SDL2.SDL;
 
 namespace SharpEngine {
+    /// <summary>
+    /// A colour that be applied to any of the drawing methods.
+    /// </summary>
     public struct Colour {
         #region Properties
         /// <summary>
@@ -49,7 +50,9 @@ namespace SharpEngine {
             B = all;
             A = a;
         }
+        #endregion
 
+        #region Methods
         internal SDL_Color ToSDL_Color() => new() { r = R, g = G, b = B, a = A };
         #endregion
     }

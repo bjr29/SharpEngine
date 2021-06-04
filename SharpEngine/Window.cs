@@ -2,6 +2,9 @@
 using static SDL2.SDL;
 
 namespace SharpEngine {
+    /// <summary>
+    /// A window which can be rendered to.
+    /// </summary>
     public class Window : IDisposable {
         #region Properties
         /// <summary>

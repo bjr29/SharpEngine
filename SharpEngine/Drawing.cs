@@ -3,9 +3,15 @@ using static SDL2.SDL;
 using static SDL2.SDL_ttf;
 
 namespace SharpEngine {
+    /// <summary>
+    /// Allows a window to be rendered to.
+    /// </summary>
     public static class Drawing {
+        #region Properties
         private static IntPtr RendererPtr { get => Engine.Window.RendererPtr; }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Draws a rectangle.
         /// </summary>
@@ -81,6 +87,16 @@ namespace SharpEngine {
             Debug.ErrorCheckSDL();
         }
 
+        /// <summary>
+        /// Draws text to the screen.
+        /// </summary>
+        /// <param name="position">The top left point of the text.</param>
+        /// <param name="text">The text to be displayed.</param>
+        /// <param name="font">The font to be used.</param>
+        /// <param name="colour">The colour of the text.</param>
+        /// <param name="angle">The angle of the text.</param>
+        /// <param name="flipHorizontal">If the text should be flipped horizontally.</param>
+        /// <param name="flipVertical">If the text should be flipped vertically.</param>
         public static void DrawText(Vector2 position, string text, Font font, Colour colour, float angle = 0,
                 bool flipHorizontal = false, bool flipVertical = false) {
             IntPtr surface = TTF_RenderText_Solid(font.FontPtr, text, colour.ToSDL_Color());
@@ -108,5 +124,6 @@ namespace SharpEngine {
         internal static void SetDrawColour(Colour colour) {
             _ = SDL_SetRenderDrawColor(RendererPtr, colour.R, colour.G, colour.B, colour.A);
         }
+        #endregion
     }
 }

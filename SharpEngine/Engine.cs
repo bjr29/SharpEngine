@@ -2,6 +2,7 @@
 using static SDL2.SDL;
 using static SDL2.SDL_image;
 using static SDL2.SDL_ttf;
+using static SDL2.SDL_mixer;
 
 namespace SharpEngine {
     /// <summary>
@@ -61,6 +62,11 @@ namespace SharpEngine {
             _ = SDL_Init(SDL_INIT_EVERYTHING);
             _ = IMG_Init(IMG_InitFlags.IMG_INIT_JPG | IMG_InitFlags.IMG_INIT_PNG);
             _ = TTF_Init();
+            //_ = Mix_Init(MIX_InitFlags.MIX_INIT_MP3 | MIX_InitFlags.MIX_INIT_OGG);
+
+            Debug.ErrorCheckSDL();
+
+            //_ = Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 4096);
 
             Debug.ErrorCheckSDL();
         }
@@ -98,8 +104,11 @@ namespace SharpEngine {
 
             Window.Dispose();
 
+            //Mix_CloseAudio();
+
             IMG_Quit();
             TTF_Quit();
+            //Mix_Quit();
             SDL_Quit();
         }
 

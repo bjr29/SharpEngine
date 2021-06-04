@@ -1,6 +1,9 @@
 ﻿using static SDL2.SDL;
 
 namespace SharpEngine {
+    /// <summary>
+    /// Used to show a point in a 2D space using float values.
+    /// </summary>
     public struct Vector2 {
         #region Constants/ readonlys
         /// <summary>
@@ -101,6 +104,9 @@ namespace SharpEngine {
         #endregion
     }
 
+    /// <summary>
+    /// Used to show a point in a 2D space using int values.
+    /// </summary>
     public struct IntVector2 {
         #region Constants/ readonlys
         /// <summary>
@@ -122,14 +128,14 @@ namespace SharpEngine {
         #endregion
 
         #region Properties
-        public int X { get; set; }
         /// <summary>
         /// The x position of the vector.
         /// </summary>
-        public int Y { get; set; }
+        public int X { get; set; }
         /// <summary>
         /// The y position of the vector.
         /// </summary>
+        public int Y { get; set; }
         #endregion
 
         #region Constructors

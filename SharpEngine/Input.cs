@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using static SDL2.SDL;
 
 namespace SharpEngine {
+    /// <summary>
+    /// Handles the input from the user.
+    /// </summary>
     public static class Input {
         #region Properties
         /// <summary>

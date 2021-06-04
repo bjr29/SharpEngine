@@ -2,9 +2,14 @@
 using static SDL2.SDL_ttf;
 
 namespace SharpEngine {
+    /// <summary>
+    /// A font that can be applied to text.
+    /// </summary>
     public class Font : IDisposable {
         #region Properties
-        public IntPtr FontPtr { get; set; }
+        /// <summary>
+        /// The size of the font.
+        /// </summary>
         public int FontSize {
             get => _FontSize;
             set {
@@ -12,16 +17,27 @@ namespace SharpEngine {
                 _ = TTF_SetFontSize(FontPtr, value);
             }
         }
+        /// <summary>
+        /// The path to the font.
+        /// </summary>
         public string FontPath { get; private set; }
+        /// <summary>
+        /// The applied font styles.
+        /// </summary>
         public FontStyle FontStyles {
             get => (FontStyle)TTF_GetFontStyle(FontPtr);
             set => TTF_SetFontStyle(FontPtr, (int)value);
         }
 
         private int _FontSize { get; set; }
+
+        internal IntPtr FontPtr { get; set; }
         #endregion
 
         #region Enums
+        /// <summary>
+        /// The font styles that can be applied to text.
+        /// </summary>
         public enum FontStyle {
             Normal = TTF_STYLE_NORMAL,
             Bold = TTF_STYLE_BOLD,
@@ -32,6 +48,11 @@ namespace SharpEngine {
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// Creates the font from the path.
+        /// </summary>
+        /// <param name="path">The path to the font file.</param>
+        /// <param name="fontSize">The size of the font.</param>
         public Font(string path, int fontSize = 12) {
             FontPtr = TTF_OpenFont(path, fontSize);
             FontPath = path;
