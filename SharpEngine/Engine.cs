@@ -62,11 +62,11 @@ namespace SharpEngine {
             _ = SDL_Init(SDL_INIT_EVERYTHING);
             _ = IMG_Init(IMG_InitFlags.IMG_INIT_JPG | IMG_InitFlags.IMG_INIT_PNG);
             _ = TTF_Init();
-            //_ = Mix_Init(MIX_InitFlags.MIX_INIT_MP3 | MIX_InitFlags.MIX_INIT_OGG);
+            _ = Mix_Init(MIX_InitFlags.MIX_INIT_MP3 | MIX_InitFlags.MIX_INIT_OGG);
 
             Debug.ErrorCheckSDL();
 
-            //_ = Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 4096);
+            _ = Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 4096);
 
             Debug.ErrorCheckSDL();
         }
@@ -104,11 +104,11 @@ namespace SharpEngine {
 
             Window.Dispose();
 
-            //Mix_CloseAudio();
+            Mix_CloseAudio();
 
             IMG_Quit();
             TTF_Quit();
-            //Mix_Quit();
+            Mix_Quit();
             SDL_Quit();
         }
 
