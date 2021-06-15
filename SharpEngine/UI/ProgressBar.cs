@@ -1,7 +1,11 @@
 ﻿using System;
 
 namespace SharpEngine.UI {
+    /// <summary>
+    /// Shows the progress of an action or the value of something.
+    /// </summary>
     public class ProgressBar {
+        #region Properties
         /// <summary>
         /// The position of the whole progress bar.
         /// </summary>
@@ -40,18 +44,31 @@ namespace SharpEngine.UI {
         /// The value of the progress bar between the values of 0 and 1.
         /// </summary>
         public float Value { get; set; }
+        #endregion
 
+        #region Constructors
+        /// <summary>
+        /// Creates the progress bar.
+        /// </summary>
+        /// <param name="position">The top left of the whole progress bar.</param>
+        /// <param name="size">The size of the whole progress bar.</param>
+        /// <param name="value">The value of the progress bar between the values of 0 and 1.</param>
         public ProgressBar(Vector2 position, Vector2 size, float value = 0) {
             Position = position;
             Size = size;
             Value = value;
         }
+        #endregion
 
+        #region Methods
+        /// <summary>
+        /// Renders the progress bar to the screen.
+        /// </summary>
         public void Draw() {
             // Background Outline
             Drawing.DrawRect(
                 Position - BackgroundOutlineThickness,
-                Size + BackgroundOutlineThickness * 2,
+                Size + (BackgroundOutlineThickness * 2),
                 BackgroundOutlineColour
             );
 
@@ -62,19 +79,22 @@ namespace SharpEngine.UI {
                 BackgroundColour
             );
 
-            // Bar Outline
-            Drawing.DrawRect(
-                Position - BarOutlineThickness, 
-                new Vector2(Size.X * Math.Clamp(Value, 0, 1), Size.Y) * 2,
-                BarColour
-            );
+            if (Value > 0) {
+                // Bar Outline
+                Drawing.DrawRect(
+                    Position - BarOutlineThickness,
+                    new Vector2(Size.X * Math.Clamp(Value, 0, 1), Size.Y) + (BarOutlineThickness * 2),
+                    BarOutlineColour
+                );
 
-            // Bar
-            Drawing.DrawRect(
-                Position, 
-                new(Size.X * Math.Clamp(Value, 0, 1), Size.Y),
-                BarColour
-            );
+                // Bar
+                Drawing.DrawRect(
+                    Position,
+                    new(Size.X * Math.Clamp(Value, 0, 1), Size.Y),
+                    BarColour
+                );
+            }
         }
+        #endregion
     }
 }

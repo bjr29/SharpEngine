@@ -9,12 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfLife", "GameOfLife\Ga
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovingPlayer", "MovingPlayer\MovingPlayer.csproj", "{08A5A265-482F-4B81-8FB3-D7EEAB58EC31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pong", "Pong\Pong.csproj", "{2BA15F14-527A-43E4-9B92-7B9ED26A6274}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pong", "Pong\Pong.csproj", "{2BA15F14-527A-43E4-9B92-7B9ED26A6274}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BEE1E429-A021-49C5-9512-4D3349995EBF}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI_Test", "UI_Test\UI_Test.csproj", "{91DD6E6B-0B49-421F-8AB7-22E33DC06B09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{2BA15F14-527A-43E4-9B92-7B9ED26A6274}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BA15F14-527A-43E4-9B92-7B9ED26A6274}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BA15F14-527A-43E4-9B92-7B9ED26A6274}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91DD6E6B-0B49-421F-8AB7-22E33DC06B09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91DD6E6B-0B49-421F-8AB7-22E33DC06B09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91DD6E6B-0B49-421F-8AB7-22E33DC06B09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91DD6E6B-0B49-421F-8AB7-22E33DC06B09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

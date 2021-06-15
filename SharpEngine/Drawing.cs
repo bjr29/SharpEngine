@@ -62,6 +62,9 @@ namespace SharpEngine {
         /// <param name="texture">The texture to show.</param>
         /// <param name="position">The top left of the texture.</param>
         /// <param name="size">The size of the texture.</param>
+        /// <param name="rotation">The rotation of the texture.</param>
+        /// <param name="flipHorizontal">Flips the texture horizontally.</param>
+        /// <param name="flipVertical">Flips the texture vertically.</param>
         public static void DrawTexture(Texture texture, Vector2 position, Vector2 size, float rotation = 0,
                 bool flipHorizontal = false, bool flipVertical = false) {
             SDL_FRect rect = Vector2.ToSDL_FRect(position, size);
@@ -99,7 +102,7 @@ namespace SharpEngine {
         /// <param name="flipVertical">If the text should be flipped vertically.</param>
         public static void DrawText(Vector2 position, string text, Font font, Colour colour, float angle = 0,
                 bool flipHorizontal = false, bool flipVertical = false) {
-            IntPtr surface = TTF_RenderText_Solid(font.FontPtr, text, colour.ToSDL_Color());
+            IntPtr surface = TTF_RenderText_Blended(font.FontPtr, text, colour.ToSDL_Color());
             IntPtr texture = SDL_CreateTextureFromSurface(RendererPtr, surface);
 
             _ = TTF_SizeText(font.FontPtr, text, out int x, out int y);
@@ -119,6 +122,41 @@ namespace SharpEngine {
 
             SDL_FreeSurface(surface);
             SDL_DestroyTexture(texture);
+        }
+
+        public static void DrawCroppedText(Vector2 position, IntVector2 croppedPosition, IntVector2 croppedSize,
+                string text, Font font, Colour colour, float angle = 0, bool flipHorizontal = false,
+                bool flipVertical = false) {
+            IntPtr surface = TTF_RenderText_Blended(font.FontPtr, text, colour.ToSDL_Color());
+            IntPtr texture = SDL_CreateTextureFromSurface(RendererPtr, surface);
+
+            _ = TTF_SizeText(font.FontPtr, text, out int x, out int y);
+            SDL_FRect rect = new() { 
+                x = position.X, y = position.Y,
+                w = Math.Clamp(x, 0, croppedSize.X), h = Math.Clamp(y, 0, croppedSize.Y)
+            };
+
+            SDL_Rect cropRect = new() { x = croppedPosition.X, y = croppedPosition.Y, w = croppedSize.X, h = croppedSize.Y };
+
+            SDL_RendererFlip flips = SDL_RendererFlip.SDL_FLIP_NONE;
+
+            if (flipHorizontal)
+                flips |= SDL_RendererFlip.SDL_FLIP_HORIZONTAL;
+
+            if (flipVertical)
+                flips |= SDL_RendererFlip.SDL_FLIP_VERTICAL;
+
+            _ = SDL_RenderCopyExF(RendererPtr, texture, ref cropRect, ref rect, angle, IntPtr.Zero, flips);
+
+            Debug.ErrorCheckSDL();
+
+            SDL_FreeSurface(surface);
+            SDL_DestroyTexture(texture);
+        }
+
+        public static Vector2 GetTextSize(string text, Font font) {
+            _ = TTF_SizeText(font.FontPtr, text, out int x, out int y);
+            return new(x, y);
         }
 
         internal static void SetDrawColour(Colour colour) {

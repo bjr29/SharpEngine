@@ -14,7 +14,11 @@ namespace SharpEngine {
             get => _FontSize;
             set {
                 _FontSize = value;
-                _ = TTF_SetFontSize(FontPtr, value);
+
+                TTF_CloseFont(FontPtr);
+                TTF_OpenFont(FontPath, value);
+
+                Debug.ErrorCheckSDL();
             }
         }
         /// <summary>
