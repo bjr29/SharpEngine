@@ -1,6 +1,9 @@
 ﻿using System;
 
 namespace SharpEngine.UI {
+    /// <summary>
+    /// A clickable UI element.
+    /// </summary>
     public class Button {
         #region Properties
         /// <summary>
@@ -109,8 +112,9 @@ namespace SharpEngine.UI {
         public void Draw() {
             Drawing.DrawRect(Position, Size, BackgroundColour);
 
-            if (Text is not null || Font is not null)
+            if (Text is not null || Font is not null) {
                 Drawing.DrawText(Position + (Size / 2) - (Drawing.GetTextSize(Text, Font) / 2), Text, Font, TextColour);
+            }
         }
 
         private void Input_MouseButtonDown(object sender, MouseButtonEventArgs e) {

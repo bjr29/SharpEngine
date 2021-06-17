@@ -9,19 +9,19 @@ namespace SharpEngine {
         /// <summary>
         /// 0, 1
         /// </summary>
-        public static readonly Vector2 Up = new(0, 1);
+        public static readonly Vector2 Up = new(y: 1);
         /// <summary>
         /// -1, 0
         /// </summary>
-        public static readonly Vector2 Left = new(-1, 0);
+        public static readonly Vector2 Left = new(x: -1);
         /// <summary>
         /// 0, -1
         /// </summary>
-        public static readonly Vector2 Down = new(0, -1);
+        public static readonly Vector2 Down = new(y: -1);
         /// <summary>
         /// 1, 0
         /// </summary>
-        public static readonly Vector2 Right = new(1, 0);
+        public static readonly Vector2 Right = new(x: 1);
         #endregion
         
         #region Properties
@@ -112,19 +112,19 @@ namespace SharpEngine {
         /// <summary>
         /// 0, 1
         /// </summary>
-        public static readonly IntVector2 Up = new(0, 1);
+        public static readonly IntVector2 Up = new(y: 1);
         /// <summary>
         /// -1, 0
         /// </summary>
-        public static readonly IntVector2 Left = new(-1, 0);
+        public static readonly IntVector2 Left = new(x: -1);
         /// <summary>
         /// 0, -1
         /// </summary>
-        public static readonly IntVector2 Down = new(0, -1);
+        public static readonly IntVector2 Down = new(y: -1);
         /// <summary>
         /// 1, 0
         /// </summary>
-        public static readonly IntVector2 Right = new(1, 0);
+        public static readonly IntVector2 Right = new(x: 1);
         #endregion
 
         #region Properties

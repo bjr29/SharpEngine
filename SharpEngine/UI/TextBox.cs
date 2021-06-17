@@ -89,6 +89,13 @@ namespace SharpEngine.UI {
         private DateTime LastEdit { get; set; }
         #endregion
 
+        #region Events
+        /// <summary>
+        /// Invoked by the textbox being clicked while it's selectable.
+        /// </summary>
+        public event EventHandler Clicked;
+        #endregion
+
         #region Constructors
         /// <summary>
         /// Creates the textbox.
@@ -123,8 +130,13 @@ namespace SharpEngine.UI {
             }
         }
 
-        private void Input_MouseButtonDown(object sender, MouseButtonEventArgs e) =>
+        private void Input_MouseButtonDown(object sender, MouseButtonEventArgs e) {
             Selected = Selectable && Rect.HasOverlapped(new(Position, Size), Input.MousePosition);
+
+            if (Selected) {
+                Clicked?.Invoke(this, e);
+            }
+        }
 
         private void Input_KeyDown(object sender, KeyPressedEventArgs e) {
             if (Selected) {
@@ -144,7 +156,7 @@ namespace SharpEngine.UI {
                     switch (e.Key) {
                         case "Backspace":
                             _Text = _Text.Remove(CaretPosition - 1, 1);
-                            CaretPosition = Math.Clamp(CaretPosition - 1, 0, _Text.Length);;
+                            CaretPosition = Math.Clamp(CaretPosition - 1, 0, _Text.Length);
                             break;
 
                         case "Delete":
@@ -153,15 +165,15 @@ namespace SharpEngine.UI {
 
                         case "Space":
                             _Text = _Text.Insert(CaretPosition, " ");
-                            CaretPosition = Math.Clamp(CaretPosition + 1, 0, _Text.Length);;
+                            CaretPosition = Math.Clamp(CaretPosition + 1, 0, _Text.Length);
                             break;
 
                         case "Left":
-                            CaretPosition = Math.Clamp(CaretPosition - 1, 0, _Text.Length);;
+                            CaretPosition = Math.Clamp(CaretPosition - 1, 0, _Text.Length);
                             break;
 
                         case "Right":
-                            CaretPosition = Math.Clamp(CaretPosition + 1, 0, _Text.Length);;
+                            CaretPosition = Math.Clamp(CaretPosition + 1, 0, _Text.Length);
                             break;
                     }
 

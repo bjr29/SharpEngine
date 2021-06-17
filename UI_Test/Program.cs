@@ -24,9 +24,7 @@ namespace UI_Test {
         private static void Engine_Ready(object sender, EventArgs e) {
             Font = new(@"C:\Users\bjrus\Appdata\Local\Microsoft\Windows\Fonts\coolvetica rg.ttf", 14);
 
-            Button = new(new(340, 60), new(50, 50), "Button", Font) {
-                
-            };
+            Button = new(new(340, 60), new(50, 50), "Button", Font);
 
             Button.Clicked += Button_Clicked;
 
