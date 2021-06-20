@@ -1,4 +1,5 @@
 ﻿using SharpEngine;
+using SharpEngine.UI;
 using System;
 
 namespace Pong {
@@ -34,6 +35,9 @@ namespace Pong {
         private static int Score2 { get; set; }
 
         private static Font Font { get; set; }
+        private static Text Countdown { get; set; }
+        private static Text Score1Text { get; set; }
+        private static Text Score2Text { get; set; }
 
         private static Random Random { get; set; } = new();
 
@@ -70,6 +74,16 @@ namespace Pong {
 
             Font = new(@"Fonts\coolvetica rg.ttf", 50);
 
+            Countdown = new(Engine.Window.WindowSize / 2 - new Vector2(10, 75), StartCountdown.ToString(), Font);
+
+            Score1Text = new(new(LeftPaddlePosition.X + PaddleSize.X + 50, 10), Score2.ToString(), Font) {
+                Colour = new(255, 150)
+            };
+
+            Score2Text = new(new(RightPaddlePosition.X - PaddleSize.X - 50, 10), Score2.ToString(), Font) {
+                Colour = new(255, 150)
+            };
+
             Reset();
         }
 
@@ -77,12 +91,8 @@ namespace Pong {
             // Game Logic
             if (StartCountdown > 0) {
                 StartCountdown -= Engine.DeltaTime;
-                Drawing.DrawText(
-                    Engine.Window.WindowSize / 2 - new Vector2(10, 75),
-                    Math.Ceiling(StartCountdown).ToString(),
-                    Font,
-                    new(255)
-                );
+                Countdown.Content = Math.Ceiling(StartCountdown).ToString();
+                Countdown.Draw();
 
             } else {
                 Paused = false;
@@ -138,8 +148,11 @@ namespace Pong {
 
             Drawing.DrawRect(BallPosition, BallSize, new(255));
 
-            Drawing.DrawText(new(LeftPaddlePosition.X + PaddleSize.X + 50, 10), Score2.ToString(), Font, new(255, 100));
-            Drawing.DrawText(new(RightPaddlePosition.X - PaddleSize.X - 50, 10), Score1.ToString(), Font, new(255, 100));
+            Score1Text.Content = Score1.ToString();
+            Score2Text.Content = Score2.ToString();
+
+            Score1Text.Draw();
+            Score2Text.Draw();
         }
 
         private static bool HasHitPaddle() {

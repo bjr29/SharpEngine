@@ -13,7 +13,7 @@ namespace SharpEngine {
 
         #region Methods
         /// <summary>
-        /// Draws a rectangle.
+        /// Renders a rectangle.
         /// </summary>
         /// <param name="position">The top left of the rectangle.</param>
         /// <param name="size">The size of the rectangle.</param>
@@ -36,7 +36,7 @@ namespace SharpEngine {
         }
 
         /// <summary>
-        /// Draws a line.
+        /// Renders a line.
         /// </summary>
         /// <param name="point1">The first point of the line.</param>
         /// <param name="point2">The second point of the line.</param>
@@ -47,7 +47,7 @@ namespace SharpEngine {
         }
 
         /// <summary>
-        /// Draws a pixel.
+        /// Renders a pixel.
         /// </summary>
         /// <param name="position">The position of the pixel.</param>
         /// <param name="colour">The colour of the pixel.</param>
@@ -57,7 +57,7 @@ namespace SharpEngine {
         }
 
         /// <summary>
-        /// Draws a texture.
+        /// Renders a texture.
         /// </summary>
         /// <param name="texture">The texture to show.</param>
         /// <param name="position">The top left of the texture.</param>
@@ -88,75 +88,6 @@ namespace SharpEngine {
             );
 
             Debug.ErrorCheckSDL();
-        }
-
-        /// <summary>
-        /// Draws text to the screen.
-        /// </summary>
-        /// <param name="position">The top left point of the text.</param>
-        /// <param name="text">The text to be displayed.</param>
-        /// <param name="font">The font to be used.</param>
-        /// <param name="colour">The colour of the text.</param>
-        /// <param name="angle">The angle of the text.</param>
-        /// <param name="flipHorizontal">If the text should be flipped horizontally.</param>
-        /// <param name="flipVertical">If the text should be flipped vertically.</param>
-        public static void DrawText(Vector2 position, string text, Font font, Colour colour, float angle = 0,
-                bool flipHorizontal = false, bool flipVertical = false) {
-            IntPtr surface = TTF_RenderText_Blended(font.FontPtr, text, colour.ToSDL_Color());
-            IntPtr texture = SDL_CreateTextureFromSurface(RendererPtr, surface);
-
-            _ = TTF_SizeText(font.FontPtr, text, out int x, out int y);
-            SDL_FRect rect = new() { x = position.X, y = position.Y, w = x, h = y };
-
-            SDL_RendererFlip flips = SDL_RendererFlip.SDL_FLIP_NONE;
-
-            if (flipHorizontal)
-                flips |= SDL_RendererFlip.SDL_FLIP_HORIZONTAL;
-
-            if (flipVertical)
-                flips |= SDL_RendererFlip.SDL_FLIP_VERTICAL;
-
-            _ = SDL_RenderCopyExF(RendererPtr, texture, IntPtr.Zero, ref rect, angle, IntPtr.Zero, flips);
-
-            Debug.ErrorCheckSDL();
-
-            SDL_FreeSurface(surface);
-            SDL_DestroyTexture(texture);
-        }
-
-        public static void DrawCroppedText(Vector2 position, IntVector2 croppedPosition, IntVector2 croppedSize,
-                string text, Font font, Colour colour, float angle = 0, bool flipHorizontal = false,
-                bool flipVertical = false) {
-            IntPtr surface = TTF_RenderText_Blended(font.FontPtr, text, colour.ToSDL_Color());
-            IntPtr texture = SDL_CreateTextureFromSurface(RendererPtr, surface);
-
-            _ = TTF_SizeText(font.FontPtr, text, out int x, out int y);
-            SDL_FRect rect = new() { 
-                x = position.X, y = position.Y,
-                w = Math.Clamp(x, 0, croppedSize.X), h = Math.Clamp(y, 0, croppedSize.Y)
-            };
-
-            SDL_Rect cropRect = new() { x = croppedPosition.X, y = croppedPosition.Y, w = croppedSize.X, h = croppedSize.Y };
-
-            SDL_RendererFlip flips = SDL_RendererFlip.SDL_FLIP_NONE;
-
-            if (flipHorizontal)
-                flips |= SDL_RendererFlip.SDL_FLIP_HORIZONTAL;
-
-            if (flipVertical)
-                flips |= SDL_RendererFlip.SDL_FLIP_VERTICAL;
-
-            _ = SDL_RenderCopyExF(RendererPtr, texture, ref cropRect, ref rect, angle, IntPtr.Zero, flips);
-
-            Debug.ErrorCheckSDL();
-
-            SDL_FreeSurface(surface);
-            SDL_DestroyTexture(texture);
-        }
-
-        public static Vector2 GetTextSize(string text, Font font) {
-            _ = TTF_SizeText(font.FontPtr, text, out int x, out int y);
-            return new(x, y);
         }
 
         internal static void SetDrawColour(Colour colour) {

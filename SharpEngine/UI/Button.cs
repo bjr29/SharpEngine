@@ -9,11 +9,25 @@ namespace SharpEngine.UI {
         /// <summary>
         /// The position of the button.
         /// </summary>
-        public Vector2 Position { get; set; }
+        public Vector2 Position {
+            get => _Position;
+            set {
+                _Position = value;
+                SetTextPosition(_Text);
+                SetTextPosition(_ToggledText);
+            }
+        }
         /// <summary>
         /// The size of the button.
         /// </summary>
-        public Vector2 Size { get; set; }
+        public Vector2 Size {
+            get => _Size;
+            set {
+                _Size = value;
+                SetTextPosition(_Text);
+                SetTextPosition(_ToggledText);
+            }
+        }
         /// <summary>
         /// The colour of the background.
         /// </summary>
@@ -28,31 +42,28 @@ namespace SharpEngine.UI {
         /// <summary>
         /// The colour of the background while selected.
         /// </summary>
-        public Colour ToggledBackgroundColour { get; set; } = new(60);
-        /// <summary>
-        /// The colour of the text.
-        /// </summary>
-        public Colour TextColour {
-            get {
-                if (Toggled)
-                    return ToggledTextColour;
-                return _TextColour;
-            }
-            set => _TextColour = value;
-        }
-        /// <summary>
-        /// The colour of the text while selected.
-        /// </summary>
-        public Colour ToggledTextColour { get; set; } = new(200);
-        /// <summary>
-        /// The font to use on the text.
-        /// </summary>
-        public Font Font { get; set; }
+        public Colour ToggledBackgroundColour { get; set; } = new(80);
 
         /// <summary>
         /// The text to be displayed.
         /// </summary>
-        public string Text { get; set; }
+        public Text Text {
+            get => _Text;
+            set {
+                _Text = value;
+                SetTextPosition(_Text);
+            }
+        }
+        /// <summary>
+        /// The text to be displayed while the button is toggled.
+        /// </summary>
+        public Text ToggledText {
+            get => _ToggledText;
+            set {
+                _ToggledText = value;
+                SetTextPosition(_ToggledText);
+            }
+        }
 
         /// <summary>
         /// Whether the button can be interacted with.
@@ -74,9 +85,11 @@ namespace SharpEngine.UI {
         /// </summary>
         public bool Toggled { get; set; }
 
+        private Vector2 _Position { get; set; }
+        private Vector2 _Size { get; set; }
         private Colour _BackgroundColour { get; set; } = new(60);
-        private Colour _TextColour { get; set; } = new(255);
-
+        private Text _Text { get; set; }
+        private Text _ToggledText { get; set; }
         private bool _Toggleable { get; set; }
         #endregion
 
@@ -84,7 +97,7 @@ namespace SharpEngine.UI {
         /// <summary>
         /// Invoked by the button being clicked while active.
         /// </summary>
-        public event EventHandler Clicked;
+        public event EventHandler<MouseButtonEventArgs> Clicked;
         #endregion
 
         #region Constructors
@@ -95,11 +108,12 @@ namespace SharpEngine.UI {
         /// <param name="size">The size of the button.</param>
         /// <param name="text">The text contained within the button.</param>
         /// <param name="font">The font to be applied to the text.</param>
-        public Button(Vector2 position, Vector2 size, string text = null, Font font = null) {
-            Position = position;
-            Size = size;
-            Text = text;
-            Font = font;
+        public Button(Vector2 position, Vector2 size, Font font, string text = "") {
+            _Position = position;
+            _Size = size;
+
+            Text = new(new(), text, font);
+            Text.Position = SetTextPosition(Text);
 
             Input.MouseButtonDown += Input_MouseButtonDown;
         }
@@ -112,9 +126,7 @@ namespace SharpEngine.UI {
         public void Draw() {
             Drawing.DrawRect(Position, Size, BackgroundColour);
 
-            if (Text is not null || Font is not null) {
-                Drawing.DrawText(Position + (Size / 2) - (Drawing.GetTextSize(Text, Font) / 2), Text, Font, TextColour);
-            }
+            Text.Draw();
         }
 
         private void Input_MouseButtonDown(object sender, MouseButtonEventArgs e) {
@@ -123,6 +135,9 @@ namespace SharpEngine.UI {
                 Toggled = Toggleable && !Toggled;
             }
         }
+
+        private Vector2 SetTextPosition(Text text) =>
+            _Position + (Size / 2) - (Text.GetTextSize(text.Content, text.Font) / 2);
         #endregion
     }
 }

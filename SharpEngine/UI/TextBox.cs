@@ -14,7 +14,7 @@ namespace SharpEngine.UI {
         /// <summary>
         /// The colour of the background.
         /// </summary>
-        public Colour BackgroundColour { 
+        public Colour BackgroundColour {
             get {
                 if (Selected)
                     return SelectedBackgroundColour;
@@ -27,40 +27,20 @@ namespace SharpEngine.UI {
         /// </summary>
         public Colour SelectedBackgroundColour { get; set; } = new(60);
         /// <summary>
-        /// The colour of the text.
-        /// </summary>
-        public Colour TextColour {
-            get {
-                if (string.IsNullOrEmpty(_Text))
-                    return PlaceholderTextColour;
-                return _TextColour;
-            }
-            set => _TextColour = value;
-        }
-        /// <summary>
-        /// The colour of the placeholder text.
-        /// </summary>
-        public Colour PlaceholderTextColour { get; set; } = new(200);
-        /// <summary>
-        /// The font to use on the text.
-        /// </summary>
-        public Font Font { get; set; }
-
-        /// <summary>
         /// The text to be displayed unless blank then it shows the placeholder.
         /// </summary>
-        public string Text {
+        public Text Text {
             get {
-                if (string.IsNullOrEmpty(_Text))
-                    return Placeholder;
+                if (string.IsNullOrEmpty(_Text.Content))
+                    return PlaceholderText;
                 return _Text;
             }
             set => _Text = value;
         }
         /// <summary>
-        /// The text displayed if the property text is blank.
+        /// The text displayed if Text.Content is blank.
         /// </summary>
-        public string Placeholder { get; set; }
+        public Text PlaceholderText { get; set; }
 
         /// <summary>
         /// Whether the textbox can be selected.
@@ -72,16 +52,12 @@ namespace SharpEngine.UI {
         /// </summary>
         public int CaretPosition { get; set; }
 
-        /*/// <summary>
-        /// Wraps the text if true.
-        /// </summary>
-        public bool Wrapped { get; set; }*/
         /// <summary>
         /// Has the textbox been selected.
         /// </summary>
         public bool Selected { get; set; }
 
-        private string _Text { get; set; } = "";
+        private Text _Text { get; set; }
         private Colour _BackgroundColour { get; set; } = new(60);
         private Colour _TextColour { get; set; } = new(255);
 
@@ -94,6 +70,7 @@ namespace SharpEngine.UI {
         /// Invoked by the textbox being clicked while it's selectable.
         /// </summary>
         public event EventHandler Clicked;
+        public event EventHandler Typed;
         #endregion
 
         #region Constructors
@@ -103,10 +80,21 @@ namespace SharpEngine.UI {
         /// <param name="position">The top left point of the textbox.</param>
         /// <param name="size">The size of the textbox.</param>
         /// <param name="font">The font used in the textbox.</param>
-        public TextBox(Vector2 position, Vector2 size, Font font) {
+        /// <param name="text">The text to be already be in the textbox.</param>
+        /// <param name="placeholder">The text that shows up when it is empty.</param>
+        public TextBox(Vector2 position, Vector2 size, Font font, string text = "", string placeholder = "") {
             Position = position;
             Size = size;
-            Font = font;
+
+            _Text = new(Position, text, font) {
+                Crop = new(new(), size),
+                Cropped = true
+            };
+
+            PlaceholderText = new(Position, placeholder, font) {
+                Crop = new(new(), size),
+                Cropped = true
+            };
 
             Input.MouseButtonDown += Input_MouseButtonDown;
             Input.KeyDown += Input_KeyDown;
@@ -122,10 +110,14 @@ namespace SharpEngine.UI {
 
             Drawing.DrawRect(Position, Size, BackgroundColour);
 
-            Drawing.DrawCroppedText(Position, new(), Size, Text, Font, TextColour);
+            Text.Draw();
 
             if (Selected && (LastEdit.AddSeconds(1) >= DateTime.Now || DateTime.Now.Second % 2 == 0)) {
-                Vector2 size = Drawing.GetTextSize(_Text[..Math.Clamp(CaretPosition, 0, _Text.Length)], Font);
+                Vector2 size = Text.GetTextSize(
+                    _Text.Content[..Math.Clamp(CaretPosition, 0, _Text.Content.Length)],
+                    Text.Font
+                );
+
                 Drawing.DrawLine(Position + new Vector2(size.X, 0), Position + size, new(255));
             }
         }
@@ -140,6 +132,8 @@ namespace SharpEngine.UI {
 
         private void Input_KeyDown(object sender, KeyPressedEventArgs e) {
             if (Selected) {
+                bool invokeTyped = true;
+
                 LastEdit = DateTime.Now;
 
                 if (e.Key.Length == 1) {
@@ -147,37 +141,43 @@ namespace SharpEngine.UI {
                     if (!(Input.IsKeyDown("Left Shift") || Input.IsKeyDown("Right Shift")))
                         key = key.ToLower();
 
-                    _Text = _Text.Insert(CaretPosition, key);
-                    CaretPosition = Math.Clamp(CaretPosition + 1, 0, _Text.Length);
+                    _Text.Content = _Text.Content.Insert(CaretPosition, key);
+                    CaretPosition = Math.Clamp(CaretPosition + 1, 0, _Text.Content.Length);
                     return;
                 }
 
                 try {
                     switch (e.Key) {
                         case "Backspace":
-                            _Text = _Text.Remove(CaretPosition - 1, 1);
-                            CaretPosition = Math.Clamp(CaretPosition - 1, 0, _Text.Length);
+                            _Text.Content = _Text.Content.Remove(CaretPosition - 1, 1);
+                            CaretPosition = Math.Clamp(CaretPosition - 1, 0, _Text.Content.Length);
                             break;
 
                         case "Delete":
-                            _Text = _Text.Remove(CaretPosition, 1);
+                            _Text.Content = _Text.Content.Remove(CaretPosition, 1);
                             break;
 
                         case "Space":
-                            _Text = _Text.Insert(CaretPosition, " ");
-                            CaretPosition = Math.Clamp(CaretPosition + 1, 0, _Text.Length);
+                            _Text.Content = _Text.Content.Insert(CaretPosition, " ");
+                            CaretPosition = Math.Clamp(CaretPosition + 1, 0, _Text.Content.Length);
                             break;
 
                         case "Left":
-                            CaretPosition = Math.Clamp(CaretPosition - 1, 0, _Text.Length);
+                            CaretPosition = Math.Clamp(CaretPosition - 1, 0, _Text.Content.Length);
+                            invokeTyped = false;
                             break;
 
                         case "Right":
-                            CaretPosition = Math.Clamp(CaretPosition + 1, 0, _Text.Length);
+                            CaretPosition = Math.Clamp(CaretPosition + 1, 0, _Text.Content.Length);
+                            invokeTyped = false;
                             break;
                     }
 
                 } catch { }
+
+                if (invokeTyped) {
+                    Typed?.Invoke(this, e);
+                }
             }
         }
         #endregion
