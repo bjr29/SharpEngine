@@ -49,6 +49,8 @@ namespace SharpEngine {
         /// </summary>
         /// <param name="size">The size of the window.</param>
         /// <param name="title">The window's displayed title.</param>
+        /// <param name="fullscreen">Should the window be started in fullscreen.</param>
+        /// <param name="maximised">Should the window be started maximised.</param>
         public Window(IntVector2 size, string title = "Sharp Engine Game", bool fullscreen = false, bool maximised = false) =>
             CreateWindow(size.X, size.Y, title, fullscreen, maximised);
 
@@ -58,6 +60,8 @@ namespace SharpEngine {
         /// <param name="width">The width of the window.</param>
         /// <param name="height">The height of the window.</param>
         /// <param name="title">The window's displayed title.</param>
+        /// <param name="fullscreen">Should the window be started in fullscreen.</param>
+        /// <param name="maximised">Should the window be started maximised.</param>
         public Window(int width = 600, int height = 400, string title = "Sharp Engine Game", bool fullscreen = false, bool maximised = false) =>
             CreateWindow(width, height, title, fullscreen, maximised);
         #endregion

@@ -3,6 +3,9 @@ using static SDL2.SDL;
 using static SDL2.SDL_ttf;
 
 namespace SharpEngine.UI {
+    /// <summary>
+    /// Renders text to window.
+    /// </summary>
     public class Text {
         #region Properties
         /// <summary>
@@ -200,6 +203,12 @@ namespace SharpEngine.UI {
             };
         }
 
+        /// <summary>
+        /// Gets the space, in pixels, the string would take up using the selected font.
+        /// </summary>
+        /// <param name="text">The string.</param>
+        /// <param name="font">The font.</param>
+        /// <returns>The space, in pixels, taken up by the text.</returns>
         public static Vector2 GetTextSize(string text, Font font) {
             _ = TTF_SizeText(font.FontPtr, text, out int x, out int y);
             return new(x, y);
