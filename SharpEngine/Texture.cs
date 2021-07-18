@@ -16,7 +16,7 @@ namespace SharpEngine {
             set {
                 _Path = value;
 
-                TexturePtr = IMG_LoadTexture(Engine.Window.RendererPtr, _Path);
+                TexturePtr = IMG_LoadTexture(RendererPtr, _Path);
                 Debug.ErrorCheckSDL();
             }
         }
@@ -24,6 +24,8 @@ namespace SharpEngine {
         private string _Path { get; set; }
 
         internal IntPtr TexturePtr { get; set; } = IntPtr.Zero;
+
+        internal static IntPtr RendererPtr { get => Engine.Window.RendererPtr; }
         #endregion
 
         #region Constructors
@@ -33,6 +35,29 @@ namespace SharpEngine {
         /// <param name="path">The texture's image path.</param>
         public Texture(string path) {
             Path = path;
+        }
+
+        /// <summary>
+        /// Creates an empty texture.
+        /// </summary>
+        public Texture(IntVector2 size, Colour colour) {
+            TexturePtr = SDL_CreateTexture(
+                RendererPtr,
+                SDL_PIXELFORMAT_RGBA8888,
+                (int) SDL_TextureAccess.SDL_TEXTUREACCESS_TARGET,
+                size.X,
+                size.Y
+            );
+
+            Colour originalColour = Engine.Window.BackgroundColour;
+
+            _ = SDL_SetRenderTarget(RendererPtr, TexturePtr);
+
+            Drawing.SetDrawColour(colour);
+            Drawing.DrawRect(new(), size, colour);
+
+            _ = SDL_SetRenderTarget(RendererPtr, IntPtr.Zero);
+            Drawing.SetDrawColour(originalColour);
         }
         #endregion
 

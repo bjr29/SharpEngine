@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using static SDL2.SDL;
 using static SDL2.SDL_image;
 
@@ -20,6 +21,15 @@ namespace SharpEngine {
         public static ConsoleColor SDL_ErrorNotificationForeground { get; set; } = ConsoleColor.White;
         public static ConsoleColor SDL_ErrorMessageBackground { get; set; } = SDL_ErrorNotificationBackground;
         public static ConsoleColor SDL_ErrorMessageForeground { get; set; } = SDL_ErrorNotificationForeground;
+
+        /// <summary>
+        /// The interval between reporting the FPS to the console if ReportFPS is true.
+        /// </summary>
+        public static float FPS_ReportInterval { get; set; } = 1;
+        /// <summary>
+        /// Whether to report the fps at the specified interval from FPS_ReportInterval.
+        /// </summary>
+        public static bool ReportFPS { get; set; }
         #endregion
 
         #region Methods
@@ -48,11 +58,14 @@ namespace SharpEngine {
             string error = SDL_GetError();
             string imgError = IMG_GetError();
 
-            if (error == "")
-                if (imgError == "")
+            if (error == "") {
+                if (imgError == "") {
                     return;
-                else
+
+                } else {
                     error = imgError;
+                }
+            }
 
             Console.Write(DateTime.Now.ToLongTimeString());
             Console.BackgroundColor = SDL_ErrorNotificationBackground;

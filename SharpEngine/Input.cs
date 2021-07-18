@@ -108,8 +108,9 @@ namespace SharpEngine {
         /// <param name="key">The key to check.</param>
         /// <returns>Returns true if the key is down.</returns>
         public static bool IsKeyDown(string key) {
-            if (KeysDown.TryGetValue(key, out bool value))
+            if (KeysDown.TryGetValue(key, out bool value)) {
                 return value;
+            }
 
             return false;
         }
@@ -120,7 +121,11 @@ namespace SharpEngine {
         /// <param name="button">The button to check.</param>
         /// <returns>Returns true if the button is down.</returns>
         public static bool IsMouseButtonDown(MouseButton button) {
-            return MouseButtonsDown[button];
+            if (MouseButtonsDown.TryGetValue(button, out bool value)) {
+                return value;
+            }
+
+            return false;
         }
 
         internal static void HandleInputEvent(SDL_Event @event) {
@@ -128,10 +133,12 @@ namespace SharpEngine {
                 case SDL_EventType.SDL_KEYDOWN:
                     LastKeyDown = SDL_GetKeyName(@event.key.keysym.sym);
 
-                    if (KeysDown.ContainsKey(LastKeyDown))
+                    if (KeysDown.ContainsKey(LastKeyDown)) {
                         KeysDown[LastKeyDown] = true;
-                    else
+
+                    } else {
                         KeysDown.Add(LastKeyDown, true);
+                    }
 
                     KeyDown?.Invoke(null, new KeyPressedEventArgs(LastKeyDown));
 
@@ -157,10 +164,11 @@ namespace SharpEngine {
                     LastMouseButtonDown = (MouseButton)@event.button.button;
                     MouseButtonsDown[LastMouseButtonDown] = true;
 
-                    if (MouseButtonsDown.ContainsKey(LastMouseButtonDown))
+                    if (MouseButtonsDown.ContainsKey(LastMouseButtonDown)) {
                         MouseButtonsDown[LastMouseButtonDown] = true;
-                    else
+                    } else {
                         MouseButtonsDown.Add(LastMouseButtonDown, true);
+                    }
 
                     MouseButtonDown?.Invoke(null, new(LastMouseButtonDown));
 

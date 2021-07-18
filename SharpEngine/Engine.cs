@@ -30,6 +30,21 @@ namespace SharpEngine {
         /// The lasts frame's delta in seconds.
         /// </summary>
         public static float DeltaTime { get; private set; }
+        /// <summary>
+        /// The native resolutions of the connected screens.
+        /// </summary>
+        public static Vector2[] NativeScreenResolutions { 
+            get {
+                Vector2[] resolutions = new Vector2[SDL_GetNumVideoDisplays()];
+
+                for (int i = 0; i < resolutions.Length; i++) {
+                    _ = SDL_GetCurrentDisplayMode(i, out SDL_DisplayMode displayMode);
+                    resolutions[i] = new(displayMode.w, displayMode.h);
+                }
+
+                return resolutions;
+            }
+        }
         #endregion
 
         #region Events
@@ -78,13 +93,20 @@ namespace SharpEngine {
             Ready?.Invoke(null, new());
 
             DateTime frameStart = DateTime.Now;
+            DateTime nextDebugInterval = DateTime.Now.AddSeconds(Debug.FPS_ReportInterval);
 
             while (true) {
                 if (!EnforceFPSCap || FPS <= MaxFPS) {
+                    if (Debug.ReportFPS && DateTime.Now > nextDebugInterval) {
+                        nextDebugInterval = DateTime.Now.AddSeconds(Debug.FPS_ReportInterval);
+                        Debug.Log($"{Math.Round(FPS)} FPS");
+                    }
+
                     frameStart = DateTime.Now;
 
-                    if (HandleEvents() == HandleEventReturn.Quit)
+                    if (HandleEvents() == HandleEventReturn.Quit) {
                         break;
+                    }
 
                     PreDraw();
                     Draw?.Invoke(null, new());
