@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace SharpEngine.UI {
-    public class TextBox {
+    public class TextBox : IUIElement {
         #region Properties
         /// <summary>
         /// The position of the textbox.
@@ -22,6 +22,7 @@ namespace SharpEngine.UI {
             }
             set => _BackgroundColour = value;
         }
+        [Obsolete("Not used")] public Colour ForegroundColour { get; set; }
         /// <summary>
         /// The colour of the background while selected.
         /// </summary>
@@ -56,6 +57,9 @@ namespace SharpEngine.UI {
         /// Has the textbox been selected.
         /// </summary>
         public bool Selected { get; set; }
+
+        public bool Show { get; set; } = true;
+        public int ZIndex { get; set; }
 
         private Text _Text { get; set; }
         private Colour _BackgroundColour { get; set; } = new(60);
@@ -98,6 +102,8 @@ namespace SharpEngine.UI {
 
             Input.MouseButtonDown += Input_MouseButtonDown;
             Input.KeyDown += Input_KeyDown;
+
+            DrawUI.RegisteredUI.Add(this);
         }
         #endregion
 
@@ -105,12 +111,10 @@ namespace SharpEngine.UI {
         /// <summary>
         /// Renders the textbox to the screen.
         /// </summary>
-        public void Draw() {
+        public void DrawElement() {
             LastDraw = DateTime.Now;
 
             Drawing.DrawRect(Position, Size, BackgroundColour);
-
-            Text.Draw();
 
             if (Selected && (LastEdit.AddSeconds(1) >= DateTime.Now || DateTime.Now.Second % 2 == 0)) {
                 Vector2 size = Text.GetTextSize(

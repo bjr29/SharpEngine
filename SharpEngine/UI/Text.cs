@@ -1,27 +1,27 @@
-﻿using System;
-using static SDL2.SDL;
+﻿using static SDL2.SDL;
 using static SDL2.SDL_ttf;
 
 namespace SharpEngine.UI {
     /// <summary>
     /// Renders text to window.
     /// </summary>
-    public class Text {
+    public class Text : IUIElement {
         #region Properties
         /// <summary>
         /// The top left point of the text.
         /// </summary>
-        public Vector2 Position { 
+        public Vector2 Position {
             get => _Position;
             set {
                 _Position = value;
                 Move();
             }
         }
+        [Obsolete("Not Used")] public Vector2 Size { get; set; }
         /// <summary>
         /// How much the text is cropped by while Cropped is true.
         /// </summary>
-        public Rect Crop { 
+        public Rect Crop {
             get => _Crop;
             set {
                 _Crop = value;
@@ -45,8 +45,8 @@ namespace SharpEngine.UI {
         /// <summary>
         /// The font to be applied to the text.
         /// </summary>
-        public Font Font { 
-            get => _Font; 
+        public Font Font {
+            get => _Font;
             set {
                 _Font = value;
                 Update();
@@ -55,18 +55,19 @@ namespace SharpEngine.UI {
         /// <summary>
         /// The colour of the text.
         /// </summary>
-        public Colour Colour {
+        public Colour ForegroundColour {
             get => _Colour;
             set {
                 _Colour = value;
                 Update();
             }
         }
+        [Obsolete("Not Used")] public Colour BackgroundColour { get; set; }
 
         /// <summary>
         /// Whether the text is anti-aliased.
         /// </summary>
-        public bool AntiAliased { 
+        public bool AntiAliased {
             get => _AntiAliased;
             set {
                 _AntiAliased = value;
@@ -76,13 +77,16 @@ namespace SharpEngine.UI {
         /// <summary>
         /// Whether the text is cropped, the amount decided by Crop.
         /// </summary>
-        public bool Cropped { 
-            get => _Cropped; 
+        public bool Cropped {
+            get => _Cropped;
             set {
                 _Cropped = value;
                 Update();
             }
         }
+
+        public bool Show { get; set; } = true;
+        public int ZIndex { get; set; }
 
         private Vector2 _Position { get; set; }
         private Rect _Crop { get; set; }
@@ -114,6 +118,8 @@ namespace SharpEngine.UI {
             Rotation = rotation;
 
             Update();
+
+            DrawUI.RegisteredUI.Add(this);
         }
         #endregion
 
@@ -121,15 +127,15 @@ namespace SharpEngine.UI {
         /// <summary>
         /// Renders the text to the screen.
         /// </summary>
-        public void Draw() {
+        public void DrawElement() {
             SDL_Rect crop = CropRect;
 
             if (!Cropped) {
                 crop = new SDL_Rect() {
                     x = 0,
                     y = 0,
-                    w = (int)Rect.w,
-                    h = (int)Rect.h
+                    w = (int) Rect.w,
+                    h = (int) Rect.h
                 };
             }
 
@@ -154,10 +160,10 @@ namespace SharpEngine.UI {
             IntPtr surface;
 
             if (AntiAliased) {
-                surface = TTF_RenderText_Blended(Font.FontPtr, Content, Colour.ToSDL_Color());
+                surface = TTF_RenderText_Blended(Font.FontPtr, Content, ForegroundColour.ToSDL_Color());
 
             } else {
-                surface = TTF_RenderText_Solid(Font.FontPtr, Content, Colour.ToSDL_Color());
+                surface = TTF_RenderText_Solid(Font.FontPtr, Content, ForegroundColour.ToSDL_Color());
             }
 
             Texture = SDL_CreateTextureFromSurface(Renderer, surface);
@@ -196,10 +202,10 @@ namespace SharpEngine.UI {
 
         private void CropText() {
             CropRect = new() {
-                x = (int)Crop.Position.X,
-                y = (int)Crop.Position.Y,
-                w = (int)Crop.Size.X,
-                h = (int)Crop.Size.Y
+                x = (int) Crop.Position.X,
+                y = (int) Crop.Position.Y,
+                w = (int) Crop.Size.X,
+                h = (int) Crop.Size.Y
             };
         }
 

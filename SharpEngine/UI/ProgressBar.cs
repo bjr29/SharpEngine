@@ -4,7 +4,7 @@ namespace SharpEngine.UI {
     /// <summary>
     /// Shows the progress of an action or the value of something.
     /// </summary>
-    public class ProgressBar {
+    public class ProgressBar : IUIElement {
         #region Properties
         /// <summary>
         /// The position of the whole progress bar.
@@ -21,7 +21,7 @@ namespace SharpEngine.UI {
         /// <summary>
         /// The colour of the bar.
         /// </summary>
-        public Colour BarColour { get; set; } = new(255);
+        public Colour ForegroundColour { get; set; } = new(255);
 
         /// <summary>
         /// The background's outline colour.
@@ -39,11 +39,14 @@ namespace SharpEngine.UI {
         /// The size of the bar's outline.
         /// </summary>
         public int BarOutlineThickness { get; set; }
-        
+
         /// <summary>
         /// The value of the progress bar between the values of 0 and 1.
         /// </summary>
         public float Value { get; set; }
+
+        public bool Show { get; set; } = true;
+        public int ZIndex { get; set; }
         #endregion
 
         #region Constructors
@@ -57,6 +60,8 @@ namespace SharpEngine.UI {
             Position = position;
             Size = size;
             Value = value;
+
+            DrawUI.RegisteredUI.Add(this);
         }
         #endregion
 
@@ -64,7 +69,7 @@ namespace SharpEngine.UI {
         /// <summary>
         /// Renders the progress bar to the screen.
         /// </summary>
-        public void Draw() {
+        public void DrawElement() {
             // Background Outline
             Drawing.DrawRect(
                 Position - BackgroundOutlineThickness,
@@ -91,7 +96,7 @@ namespace SharpEngine.UI {
                 Drawing.DrawRect(
                     Position,
                     new(Size.X * Math.Clamp(Value, 0, 1), Size.Y),
-                    BarColour
+                    ForegroundColour
                 );
             }
         }

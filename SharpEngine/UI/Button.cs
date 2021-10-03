@@ -4,7 +4,7 @@ namespace SharpEngine.UI {
     /// <summary>
     /// A clickable UI element.
     /// </summary>
-    public class Button {
+    public class Button : IUIElement {
         #region Properties
         /// <summary>
         /// The position of the button.
@@ -39,10 +39,12 @@ namespace SharpEngine.UI {
             }
             set => _BackgroundColour = value;
         }
+        public Colour ForegroundColour { get; set; }
         /// <summary>
         /// The colour of the background while selected.
         /// </summary>
         public Colour ToggledBackgroundColour { get; set; } = new(80);
+        public Colour ToggledForegroundColour { get; set; }
 
         /// <summary>
         /// The text to be displayed.
@@ -72,7 +74,7 @@ namespace SharpEngine.UI {
         /// <summary>
         /// Whether the button can be toggled.
         /// </summary>
-        public bool Toggleable { 
+        public bool Toggleable {
             get => _Toggleable;
             set {
                 _Toggleable = value;
@@ -84,6 +86,9 @@ namespace SharpEngine.UI {
         /// Has the button been toggled.
         /// </summary>
         public bool Toggled { get; set; }
+
+        public bool Show { get; set; } = true;
+        public int ZIndex { get; set; }
 
         private Vector2 _Position { get; set; }
         private Vector2 _Size { get; set; }
@@ -116,17 +121,16 @@ namespace SharpEngine.UI {
             Text.Position = SetTextPosition(Text);
 
             Input.MouseButtonDown += Input_MouseButtonDown;
+
+            DrawUI.RegisteredUI.Add(this);
         }
         #endregion
 
         #region Methods
-        /// <summary>
-        /// Renders the button.
-        /// </summary>
-        public void Draw() {
+        public void DrawElement() {
             Drawing.DrawRect(Position, Size, BackgroundColour);
 
-            Text.Draw();
+            Text.ZIndex = ZIndex + 1;
         }
 
         private void Input_MouseButtonDown(object sender, MouseButtonEventArgs e) {

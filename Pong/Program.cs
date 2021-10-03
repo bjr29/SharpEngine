@@ -72,16 +72,16 @@ namespace Pong {
             BallPosition = (Engine.Window.WindowSize / 2) - (BallSize / 2);
             DefaultBallPosition = BallPosition;
 
-            Font = new(@"Fonts\coolvetica rg.ttf", 50);
+            Font = new(@"Fonts\OpenSans-SemiBold.ttf", 50);
 
             Countdown = new(Engine.Window.WindowSize / 2 - new Vector2(10, 75), StartCountdown.ToString(), Font);
 
             Score1Text = new(new(LeftPaddlePosition.X + PaddleSize.X + 50, 10), Score2.ToString(), Font) {
-                Colour = new(255, 150)
+                ForegroundColour = new(255, 150)
             };
 
             Score2Text = new(new(RightPaddlePosition.X - PaddleSize.X - 50, 10), Score2.ToString(), Font) {
-                Colour = new(255, 150)
+                ForegroundColour = new(255, 150)
             };
 
             Reset();
@@ -92,9 +92,9 @@ namespace Pong {
             if (StartCountdown > 0) {
                 StartCountdown -= Engine.DeltaTime;
                 Countdown.Content = Math.Ceiling(StartCountdown).ToString();
-                Countdown.Draw();
 
             } else {
+                Countdown.Show = false;
                 Paused = false;
             }
 
@@ -116,31 +116,36 @@ namespace Pong {
                 BallDirection += new Vector2(BallDirection.X * -2, y);
             }
 
-            if (HasHitBounds())
+            if (HasHitBounds()) {
                 BallDirection *= new Vector2(1, -1);
+            }
 
             BallPosition += BallDirection * BallMovementSpeed * Engine.DeltaTime * PausedMultiplier;
 
             // Input
-            if (Input.IsKeyDown("W"))
-                LeftPaddlePosition = new Vector2(DefaultLeftPaddlePosition.X, 0) + Vector2.Up 
+            if (Input.IsKeyDown("W")) {
+                LeftPaddlePosition = new Vector2(DefaultLeftPaddlePosition.X, 0) + Vector2.Up
                     * Math.Clamp(LeftPaddlePosition.Y - (PaddleMovementSpeed * Engine.DeltaTime * PausedMultiplier),
                     PaddleRange.X, PaddleRange.Y);
+            }
 
-            if (Input.IsKeyDown("S"))
-                LeftPaddlePosition = new Vector2(DefaultLeftPaddlePosition.X, 0) + Vector2.Up 
+            if (Input.IsKeyDown("S")) {
+                LeftPaddlePosition = new Vector2(DefaultLeftPaddlePosition.X, 0) + Vector2.Up
                     * Math.Clamp(LeftPaddlePosition.Y + (PaddleMovementSpeed * Engine.DeltaTime * PausedMultiplier),
                     PaddleRange.X, PaddleRange.Y);
+            }
 
-            if (Input.IsKeyDown("Up"))
+            if (Input.IsKeyDown("Up")) {
                 RightPaddlePosition = new Vector2(DefaultRightPaddlePosition.X, 0) + Vector2.Up
                     * Math.Clamp(RightPaddlePosition.Y - (PaddleMovementSpeed * Engine.DeltaTime * PausedMultiplier),
                     PaddleRange.X, PaddleRange.Y);
+            }
 
-            if (Input.IsKeyDown("Down"))
+            if (Input.IsKeyDown("Down")) {
                 RightPaddlePosition = new Vector2(DefaultRightPaddlePosition.X, 0) + Vector2.Up
                     * Math.Clamp(RightPaddlePosition.Y + (PaddleMovementSpeed * Engine.DeltaTime * PausedMultiplier),
                     PaddleRange.X, PaddleRange.Y);
+            }
 
             // Drawing
             Drawing.DrawRect(LeftPaddlePosition, PaddleSize, new(255));
@@ -150,9 +155,6 @@ namespace Pong {
 
             Score1Text.Content = Score1.ToString();
             Score2Text.Content = Score2.ToString();
-
-            Score1Text.Draw();
-            Score2Text.Draw();
         }
 
         private static bool HasHitPaddle() {
@@ -163,15 +165,17 @@ namespace Pong {
                     ||
                     (RightPaddlePosition.X <= BallPosition.X + BallSize.X
                     && RightPaddlePosition.Y <= BallPosition.Y + BallSize.Y
-                    && RightPaddlePosition.Y + PaddleSize.Y >= BallPosition.Y))
+                    && RightPaddlePosition.Y + PaddleSize.Y >= BallPosition.Y)) {
                 return true;
+            }
 
             return false;
         }
 
         private static bool HasHitBounds() {
-            if (BallPosition.Y <= 30 || BallPosition.Y + BallSize.Y >= 370)
+            if (BallPosition.Y <= 30 || BallPosition.Y + BallSize.Y >= 370) {
                 return true;
+            }
 
             return false;
         }
@@ -181,7 +185,7 @@ namespace Pong {
             if (Random.Next(0, 2) == 0)
                 x = -1;
 
-            float y = (float)Random.NextDouble();
+            float y = (float) Random.NextDouble();
             if (Random.Next(0, 2) == 0)
                 y *= -1;
 

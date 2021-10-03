@@ -3,6 +3,7 @@ using static SDL2.SDL;
 using static SDL2.SDL_image;
 using static SDL2.SDL_ttf;
 using static SDL2.SDL_mixer;
+using SharpEngine.UI;
 
 namespace SharpEngine {
     /// <summary>
@@ -110,6 +111,7 @@ namespace SharpEngine {
 
                     PreDraw();
                     Draw?.Invoke(null, new());
+                    DrawUI.Draw();
                     PostDraw();
                 }
 

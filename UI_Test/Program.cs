@@ -23,14 +23,14 @@ namespace UI_Test {
         }
 
         private static void Engine_Ready(object sender, EventArgs e) {
-            Font = new(@"C:\Users\bjrus\Appdata\Local\Microsoft\Windows\Fonts\coolvetica rg.ttf", 14);
+            Font = new(@"Fonts\OpenSans-SemiBold.ttf", 14);
 
             Button = new(new(340, 60), new(50, 50), Font, "Button");
 
             Button.Clicked += Button_Clicked;
 
             ProgressBar = new(new(340, 20), new(100, 20)) {
-                BarColour = new(0, 255, 0),
+                ForegroundColour = new(0, 255, 0),
                 BackgroundColour = new(255, 0, 0),
                 BackgroundOutlineThickness = 2,
                 BackgroundOutlineColour = new(200, 0, 0),
@@ -39,11 +39,12 @@ namespace UI_Test {
             };
 
             TextBox = new(new(20, 20), new(300, 18), Font, text: "Bruh", placeholder: "Type Something");
-            TextBox.Text.Colour = new(255);
-            TextBox.PlaceholderText.Colour = new(200);
+            TextBox.Text.ForegroundColour = new(255);
+            TextBox.PlaceholderText.ForegroundColour = new(200);
 
             Text = new(new(280, 60), "Text", Font) {
-                Colour = new(255)
+                ForegroundColour = new(255),
+                Font = Font
             };
         }
 
@@ -57,10 +58,7 @@ namespace UI_Test {
         }
 
         private static void Engine_Draw(object sender, EventArgs e) {
-            Button.Draw();
-            ProgressBar.Draw();
-            TextBox.Draw();
-            Text.Draw();
+
         }
     }
 }
