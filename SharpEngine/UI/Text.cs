@@ -166,6 +166,10 @@ namespace SharpEngine.UI {
                 surface = TTF_RenderText_Solid(Font.FontPtr, Content, ForegroundColour.ToSDL_Color());
             }
 
+            if (Texture != IntPtr.Zero) {
+                SDL_DestroyTexture(Texture);
+            }
+
             Texture = SDL_CreateTextureFromSurface(Renderer, surface);
 
             SDL_FreeSurface(surface);
