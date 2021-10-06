@@ -119,7 +119,7 @@ namespace SharpEngine.UI {
 
             Update();
 
-            DrawUI.RegisteredUI.Add(this);
+            DrawRenderables.RegisteredRenderable.Add(this);
         }
         #endregion
 
@@ -127,7 +127,7 @@ namespace SharpEngine.UI {
         /// <summary>
         /// Renders the text to the screen.
         /// </summary>
-        public void DrawElement() {
+        public void Draw() {
             SDL_Rect crop = CropRect;
 
             if (!Cropped) {

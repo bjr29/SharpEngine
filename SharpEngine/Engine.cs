@@ -111,7 +111,7 @@ namespace SharpEngine {
 
                     PreDraw();
                     Draw?.Invoke(null, new());
-                    DrawUI.Draw();
+                    DrawRenderables.Draw();
                     PostDraw();
                 }
 

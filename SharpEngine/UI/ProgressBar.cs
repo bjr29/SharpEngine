@@ -61,7 +61,7 @@ namespace SharpEngine.UI {
             Size = size;
             Value = value;
 
-            DrawUI.RegisteredUI.Add(this);
+            DrawRenderables.RegisteredRenderable.Add(this);
         }
         #endregion
 
@@ -69,7 +69,7 @@ namespace SharpEngine.UI {
         /// <summary>
         /// Renders the progress bar to the screen.
         /// </summary>
-        public void DrawElement() {
+        public void Draw() {
             // Background Outline
             Drawing.DrawRect(
                 Position - BackgroundOutlineThickness,

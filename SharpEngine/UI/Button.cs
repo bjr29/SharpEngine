@@ -122,12 +122,12 @@ namespace SharpEngine.UI {
 
             Input.MouseButtonDown += Input_MouseButtonDown;
 
-            DrawUI.RegisteredUI.Add(this);
+            DrawRenderables.RegisteredRenderable.Add(this);
         }
         #endregion
 
         #region Methods
-        public void DrawElement() {
+        public void Draw() {
             Drawing.DrawRect(Position, Size, BackgroundColour);
 
             Text.ZIndex = ZIndex + 1;

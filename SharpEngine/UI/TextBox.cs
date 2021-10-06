@@ -103,7 +103,7 @@ namespace SharpEngine.UI {
             Input.MouseButtonDown += Input_MouseButtonDown;
             Input.KeyDown += Input_KeyDown;
 
-            DrawUI.RegisteredUI.Add(this);
+            DrawRenderables.RegisteredRenderable.Add(this);
         }
         #endregion
 
@@ -111,7 +111,7 @@ namespace SharpEngine.UI {
         /// <summary>
         /// Renders the textbox to the screen.
         /// </summary>
-        public void DrawElement() {
+        public void Draw() {
             LastDraw = DateTime.Now;
 
             Drawing.DrawRect(Position, Size, BackgroundColour);

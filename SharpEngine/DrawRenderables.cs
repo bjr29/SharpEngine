@@ -1,19 +1,19 @@
-﻿namespace SharpEngine.UI {
-    public static class DrawUI {
-        public static List<IUIElement> RegisteredUI { get; set; } = new();
+﻿namespace SharpEngine {
+    public static class DrawRenderables {
+        public static List<IRenderable> RegisteredRenderable { get; set; } = new();
 
         internal static void Draw() {
-            List<IUIElement> remaining = RegisteredUI.ToList();
+            List<IRenderable> remaining = RegisteredRenderable.ToList();
 
             for (int i = 0; i < remaining.Count; i++) {
-                IUIElement element = remaining[i];
+                IRenderable element = remaining[i];
 
                 if (element.ZIndex != i) {
                     continue;
                 }
 
                 if (element.Show) {
-                    element.DrawElement();
+                    element.Draw();
                 }
 
                 remaining.Remove(element);

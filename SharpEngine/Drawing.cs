@@ -107,7 +107,7 @@ namespace SharpEngine {
         /// <param name="rotation">The rotation of the texture.</param>
         /// <param name="flipHorizontal">Flips the texture horizontally.</param>
         /// <param name="flipVertical">Flips the texture vertically.</param>
-        public static void DrawTexture(Texture texture, Vector2 position, Vector2 size, float rotation = 0,
+        [Obsolete("Use sprites")] public static void DrawTexture(Texture texture, Vector2 position, Vector2 size, float rotation = 0,
                 bool flipHorizontal = false, bool flipVertical = false) {
             SDL_FRect rect = Vector2.ToSDL_FRect(position, size);
 
