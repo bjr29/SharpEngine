@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SharpEngine.UI {
+﻿namespace SharpEngine.UI {
     /// <summary>
     /// A clickable UI element.
     /// </summary>

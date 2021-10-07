@@ -1,5 +1,4 @@
-﻿using System;
-using SharpEngine;
+﻿using SharpEngine;
 
 namespace MovingPlayer {
     static class Program {

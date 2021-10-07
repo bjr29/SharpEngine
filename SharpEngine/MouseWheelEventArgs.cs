@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SharpEngine {
+﻿namespace SharpEngine {
     /// <summary>
     /// Stores data about the mouse's scroll wheel movement.
     /// </summary>

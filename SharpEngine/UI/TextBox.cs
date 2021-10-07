@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SharpEngine.UI {
+﻿namespace SharpEngine.UI {
     public class TextBox : IUIElement {
         #region Properties
         /// <summary>

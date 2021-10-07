@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SharpEngine.UI {
+﻿namespace SharpEngine.UI {
     /// <summary>
     /// Shows the progress of an action or the value of something.
     /// </summary>

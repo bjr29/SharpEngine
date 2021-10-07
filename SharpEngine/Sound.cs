@@ -1,5 +1,4 @@
-﻿using System;
-using static SDL2.SDL_mixer;
+﻿using static SDL2.SDL_mixer;
 
 namespace SharpEngine {
     /// <summary>

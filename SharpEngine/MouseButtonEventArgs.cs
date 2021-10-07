@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SharpEngine {
+﻿namespace SharpEngine {
     /// <summary>
     /// Stores data about a mouse button press/ release.
     /// </summary>

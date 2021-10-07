@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using static SDL2.SDL;
+﻿using static SDL2.SDL;
 using static SDL2.SDL_image;
 
 namespace SharpEngine {

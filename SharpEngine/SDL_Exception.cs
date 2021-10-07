@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SharpEngine {
+﻿namespace SharpEngine {
     /// <summary>
     /// An exception for when engine's window api has thrown an exception.
     /// </summary>
