@@ -99,42 +99,6 @@ namespace SharpEngine {
         }
 
         /// <summary>
-        /// Renders a texture.
-        /// </summary>
-        /// <param name="texture">The texture to show.</param>
-        /// <param name="position">The top left of the texture.</param>
-        /// <param name="size">The size of the texture.</param>
-        /// <param name="rotation">The rotation of the texture.</param>
-        /// <param name="flipHorizontal">Flips the texture horizontally.</param>
-        /// <param name="flipVertical">Flips the texture vertically.</param>
-        [Obsolete("Use sprites")] public static void DrawTexture(Texture texture, Vector2 position, Vector2 size, float rotation = 0,
-                bool flipHorizontal = false, bool flipVertical = false) {
-            SDL_FRect rect = Vector2.ToSDL_FRect(position, size);
-
-            SDL_RendererFlip flips = SDL_RendererFlip.SDL_FLIP_NONE;
-
-            if (flipHorizontal) {
-                flips |= SDL_RendererFlip.SDL_FLIP_HORIZONTAL;
-            }
-
-            if (flipVertical) {
-                flips |= SDL_RendererFlip.SDL_FLIP_VERTICAL;
-            }
-
-            _ = SDL_RenderCopyExF(
-                RendererPtr,
-                texture.TexturePtr,
-                IntPtr.Zero,
-                ref rect,
-                rotation,
-                IntPtr.Zero,
-                flips
-            );
-
-            Debug.ErrorCheckSDL();
-        }
-
-        /// <summary>
         /// Sets all of the drawing methods to affect the chosen texture.
         /// </summary>
         /// <param name="texture">The texture to render to.</param>

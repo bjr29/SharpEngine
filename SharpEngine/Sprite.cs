@@ -25,6 +25,8 @@ namespace SharpEngine {
             Texture = texture;
             Rotation = rotation;
             ZIndex = zIndex;
+
+            DrawRenderables.RegisteredRenderable.Add(this);
         }
 
         public void Draw() {
