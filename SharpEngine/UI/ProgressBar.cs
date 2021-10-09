@@ -59,7 +59,7 @@
             Size = size;
             Value = value;
 
-            DrawRenderables.RegisteredRenderable.Add(this);
+            DrawRenderables.RegisteredRenderables.Add(this);
         }
         #endregion
 

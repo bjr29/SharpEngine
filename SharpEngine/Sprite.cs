@@ -21,7 +21,7 @@ namespace SharpEngine {
             Rotation = rotation;
             ZIndex = zIndex;
 
-            DrawRenderables.RegisteredRenderable.Add(this);
+            DrawRenderables.RegisteredRenderables.Add(this);
         }
 
         public void Draw() {

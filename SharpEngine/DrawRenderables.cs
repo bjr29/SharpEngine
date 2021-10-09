@@ -1,26 +1,21 @@
-﻿namespace SharpEngine {
+﻿using System.Linq;
+
+namespace SharpEngine {
     public static class DrawRenderables {
-        public static List<IRenderable> RegisteredRenderable { get; set; } = new();
+        public static List<IRenderable> RegisteredRenderables { get; set; } = new();
+
+        private static IOrderedEnumerable<IRenderable> OrderedRenderables { get; set; }
 
         internal static void Draw() {
-            List<IRenderable> remaining = RegisteredRenderable.ToList();
+            if (RegisteredRenderables.Count == 0) {
+                return;
+            }
 
-            for (int i = 0; i < remaining.Count; i++) {
-                IRenderable element = remaining[i];
+            OrderedRenderables = RegisteredRenderables.OrderBy(x => x.ZIndex);
 
-                if (element.ZIndex != i) {
-                    continue;
-                }
-
-                if (element.Show) {
-                    element.Draw();
-                }
-
-                remaining.Remove(element);
-                i--;
-
-                if (i == remaining.Count - 1) {
-                    i = 0;
+            foreach (IRenderable renderable in OrderedRenderables) {
+                if (renderable.Show) {
+                    renderable.Draw();
                 }
             }
         }

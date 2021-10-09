@@ -120,7 +120,7 @@
 
             Input.MouseButtonDown += Input_MouseButtonDown;
 
-            DrawRenderables.RegisteredRenderable.Add(this);
+            DrawRenderables.RegisteredRenderables.Add(this);
         }
         #endregion
 

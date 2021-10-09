@@ -2,7 +2,7 @@
 using SharpEngine.UI;
 using System;
 
-namespace UI_Test {
+namespace UITest {
     static class Program {
         public static Font Font { get; set; }
 
@@ -17,7 +17,6 @@ namespace UI_Test {
             Engine.Window = new(title: "Sharp Engine Test - UI Test");
 
             Engine.Ready += Engine_Ready;
-            Engine.Draw += Engine_Draw;
 
             Engine.Start();
         }
@@ -55,10 +54,6 @@ namespace UI_Test {
             } else if (e.MouseButton == Input.MouseButton.Right) {
                 ProgressBar.Value -= 0.1f;
             }
-        }
-
-        private static void Engine_Draw(object sender, EventArgs e) {
-
         }
     }
 }

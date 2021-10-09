@@ -104,6 +104,10 @@ namespace SharpEngine {
         public bool Equals(IntVector2 other) {
             return X == other.X && Y == other.Y;
         }
+
+        public override int GetHashCode() {
+            return HashCode.Combine(X, Y);
+        }
         #endregion
     }
 }

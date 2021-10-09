@@ -122,6 +122,10 @@ namespace SharpEngine {
         public override bool Equals(object obj) {
             return obj is Vector2 && Equals((Vector2)obj);
         }
+
+        public override int GetHashCode() {
+            return HashCode.Combine(X, Y);
+        }
         #endregion
     }
 }

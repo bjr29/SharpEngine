@@ -119,7 +119,7 @@ namespace SharpEngine.UI {
 
             Update();
 
-            DrawRenderables.RegisteredRenderable.Add(this);
+            DrawRenderables.RegisteredRenderables.Add(this);
         }
         #endregion
 
@@ -132,8 +132,6 @@ namespace SharpEngine.UI {
 
             if (!Cropped) {
                 crop = new SDL_Rect() {
-                    x = 0,
-                    y = 0,
                     w = (int) Rect.w,
                     h = (int) Rect.h
                 };
