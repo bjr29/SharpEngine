@@ -21,6 +21,9 @@ namespace SharpEngine {
             }
         }
 
+        /// <summary>
+        /// Modifies the colours of the texture.
+        /// </summary>
         public Colour ColourMod { 
             get {
                 _ = SDL_GetTextureColorMod(TexturePtr, out byte r, out byte g, out byte b);

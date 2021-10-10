@@ -105,6 +105,14 @@ namespace SharpEngine {
             return X == other.X && Y == other.Y;
         }
 
+        public bool Equals(Vector2 other) {
+            return X == other.X && Y == other.Y;
+        }
+
+        public override bool Equals(object obj) {
+            return obj is Vector2 vector && Equals(vector);
+        }
+
         public override int GetHashCode() {
             return HashCode.Combine(X, Y);
         }

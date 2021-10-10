@@ -43,7 +43,13 @@
         /// </summary>
         public float Value { get; set; }
 
+        /// <summary>
+        /// Should be rendered by DrawRenderables.
+        /// </summary>
         public bool Show { get; set; } = true;
+        /// <summary>
+        /// The render method.
+        /// </summary>
         public int ZIndex { get; set; }
         #endregion
 

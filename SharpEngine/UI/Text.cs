@@ -17,6 +17,9 @@ namespace SharpEngine.UI {
                 Move();
             }
         }
+        /// <summary>
+        /// Not used as the text size is decided by the text and font size.
+        /// </summary>
         [Obsolete("Not Used")] public Vector2 Size { get; set; }
         /// <summary>
         /// How much the text is cropped by while Cropped is true.
@@ -62,8 +65,15 @@ namespace SharpEngine.UI {
                 Update();
             }
         }
-        [Obsolete("Not Used")] public Colour BackgroundColour { get; set; }
+        /// <summary>
+        /// The background colour of the text.
+        /// </summary>
+        public Colour BackgroundColour { get; set; }
 
+        /// <summary>
+        /// Whether the text has a background.
+        /// </summary>
+        public bool HasBackground { get; set; }
         /// <summary>
         /// Whether the text is anti-aliased.
         /// </summary>
@@ -85,7 +95,13 @@ namespace SharpEngine.UI {
             }
         }
 
+        /// <summary>
+        /// Should be rendered by DrawRenderables.
+        /// </summary>
         public bool Show { get; set; } = true;
+        /// <summary>
+        /// The order to be rendered in, only applied by DrawRenderables.
+        /// </summary>
         public int ZIndex { get; set; }
 
         private Vector2 _Position { get; set; }
@@ -99,6 +115,7 @@ namespace SharpEngine.UI {
         private readonly IntPtr Renderer = Engine.Window.RendererPtr;
 
         private IntPtr Texture { get; set; }
+
         private SDL_FRect Rect;
         private SDL_Rect CropRect;
         #endregion
@@ -135,6 +152,10 @@ namespace SharpEngine.UI {
                     w = (int) Rect.w,
                     h = (int) Rect.h
                 };
+            }
+
+            if (HasBackground) {
+                Drawing.DrawRect(new Rect(Rect), BackgroundColour);
             }
 
             _ = SDL_RenderCopyExF(

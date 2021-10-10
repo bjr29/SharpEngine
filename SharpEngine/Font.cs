@@ -42,10 +42,25 @@ namespace SharpEngine {
         /// The font styles that can be applied to text.
         /// </summary>
         public enum FontStyle {
+            /// <summary>
+            /// Regular text.
+            /// </summary>
             Normal = TTF_STYLE_NORMAL,
+            /// <summary>
+            /// Bold text.
+            /// </summary>
             Bold = TTF_STYLE_BOLD,
+            /// <summary>
+            /// Italic text.
+            /// </summary>
             Italic = TTF_STYLE_ITALIC,
+            /// <summary>
+            /// Underlined text.
+            /// </summary>
             Underline = TTF_STYLE_UNDERLINE,
+            /// <summary>
+            /// Strikethrough text.
+            /// </summary>
             Strikethrough = TTF_STYLE_STRIKETHROUGH
         }
         #endregion
@@ -69,6 +84,10 @@ namespace SharpEngine {
         #endregion
 
         #region Inherited Methods
+        /// <summary>
+        /// Disposes the object.
+        /// </summary>
+        /// <param name="disposing">Is the object being disposed.</param>
         protected virtual void Dispose(bool disposing) {
             if (!DisposedValue) {
                 TTF_CloseFont(FontPtr);

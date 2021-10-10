@@ -37,11 +37,17 @@
             }
             set => _BackgroundColour = value;
         }
+        /// <summary>
+        /// The text's colour.
+        /// </summary>
         public Colour ForegroundColour { get; set; }
         /// <summary>
-        /// The colour of the background while selected.
+        /// The colour of the background while toggled.
         /// </summary>
         public Colour ToggledBackgroundColour { get; set; } = new(80);
+        /// <summary>
+        /// The text's colour while toggled.
+        /// </summary>
         public Colour ToggledForegroundColour { get; set; }
 
         /// <summary>
@@ -85,7 +91,13 @@
         /// </summary>
         public bool Toggled { get; set; }
 
+        /// <summary>
+        /// Should be rendered by DrawRenderables.
+        /// </summary>
         public bool Show { get; set; } = true;
+        /// <summary>
+        /// The order to be rendered in, only applied by DrawRenderables.
+        /// </summary>
         public int ZIndex { get; set; }
 
         private Vector2 _Position { get; set; }
@@ -125,6 +137,9 @@
         #endregion
 
         #region Methods
+        /// <summary>
+        /// The render method.
+        /// </summary>
         public void Draw() {
             Drawing.DrawRect(Position, Size, BackgroundColour);
 

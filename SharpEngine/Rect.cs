@@ -36,6 +36,16 @@ namespace SharpEngine {
             Size = new(w, h);
         }
 
+        internal Rect(SDL_Rect rect) {
+            Position = new(rect.x, rect.y);
+            Size = new(rect.w, rect.h);
+        }
+
+        internal Rect(SDL_FRect rect) {
+            Position = new(rect.x, rect.y);
+            Size = new(rect.w, rect.h);
+        }
+
         /// <summary>
         /// Checks if a point overlaps the rectangle.
         /// </summary>

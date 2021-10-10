@@ -1,7 +1,11 @@
-﻿using System.Linq;
-
-namespace SharpEngine {
+﻿namespace SharpEngine {
+    /// <summary>
+    /// The class that draws all renderable objects that impliment IRenderable.
+    /// </summary>
     public static class DrawRenderables {
+        /// <summary>
+        /// Objects within the list will be rendered.
+        /// </summary>
         public static List<IRenderable> RegisteredRenderables { get; set; } = new();
 
         private static IOrderedEnumerable<IRenderable> OrderedRenderables { get; set; }

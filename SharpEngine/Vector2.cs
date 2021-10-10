@@ -120,7 +120,7 @@ namespace SharpEngine {
         }
 
         public override bool Equals(object obj) {
-            return obj is Vector2 && Equals((Vector2)obj);
+            return obj is Vector2 vector && Equals(vector);
         }
 
         public override int GetHashCode() {
