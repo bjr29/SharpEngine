@@ -18,9 +18,15 @@ namespace UITest {
 
         private static void Ready(object? sender, EventArgs e) {
             Tilemap.Tileset = new() {
-                new(ImagesPath + "1.png"),
-                new(ImagesPath + "2.png"),
-                new(ImagesPath + "3.png"),
+                new(ImagesPath + "1.png") {
+                    ColourMod = new(255, 0, 0)
+                },
+                new(ImagesPath + "2.png") {
+                    ColourMod = new(0, 255, 0)
+                },
+                new(ImagesPath + "3.png") {
+                    ColourMod = new(0, 0, 255)
+                },
             };
 
             Tilemap.Tiles = new() {

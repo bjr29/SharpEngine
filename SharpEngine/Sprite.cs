@@ -25,6 +25,12 @@ namespace SharpEngine {
         }
 
         public void Draw() {
+            if (Position.X > Engine.Window.WindowSize.X && Position.Y > Engine.Window.WindowSize.Y 
+                && Position.X + Size.X > 0 && Position.Y + Size.Y > 0) {
+
+                return;
+            }
+
             SDL_FRect rect = Vector2.ToSDL_FRect(Position, Size);
 
             SDL_RendererFlip flips = SDL_RendererFlip.SDL_FLIP_NONE;

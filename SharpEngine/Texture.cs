@@ -1,4 +1,5 @@
-﻿using static SDL2.SDL;
+﻿using SDL2;
+using static SDL2.SDL;
 using static SDL2.SDL_image;
 
 namespace SharpEngine {
@@ -16,6 +17,23 @@ namespace SharpEngine {
                 _Path = value;
 
                 TexturePtr = IMG_LoadTexture(RendererPtr, _Path);
+                Debug.ErrorCheckSDL();
+            }
+        }
+
+        public Colour ColourMod { 
+            get {
+                _ = SDL_GetTextureColorMod(TexturePtr, out byte r, out byte g, out byte b);
+                _ = SDL_GetTextureAlphaMod(TexturePtr, out byte a);
+
+                Debug.ErrorCheckSDL();
+
+                return new(r, g, b, a);
+            }
+            set {
+                _ = SDL_SetTextureColorMod(TexturePtr, value.R, value.G, value.B);
+                _ = SDL_SetTextureAlphaMod(TexturePtr, value.A);
+
                 Debug.ErrorCheckSDL();
             }
         }
