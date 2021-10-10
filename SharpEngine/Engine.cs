@@ -108,8 +108,8 @@ namespace SharpEngine {
                     }
 
                     PreDraw();
-                    Draw?.Invoke(null, new());
                     DrawRenderables.Draw();
+                    Draw?.Invoke(null, new());
                     PostDraw();
                 }
 
