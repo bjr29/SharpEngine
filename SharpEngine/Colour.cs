@@ -98,8 +98,6 @@ namespace SharpEngine {
                 default:
                     throw new Exception("Invalid hex value.");
             }
-
-            Debug.Log(R);
         }
 
         public static byte ParseHexSymbol(char hexSymbol) {
