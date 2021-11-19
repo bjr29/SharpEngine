@@ -1,4 +1,6 @@
-﻿namespace SharpEngine {
+﻿using System.Collections.Generic;
+
+namespace SharpEngine {
     /// <summary>
     /// A collection of sprites used as tiles.
     /// </summary>

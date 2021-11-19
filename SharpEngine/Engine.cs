@@ -2,13 +2,13 @@
 using static SDL2.SDL_image;
 using static SDL2.SDL_ttf;
 using static SDL2.SDL_mixer;
+using System;
 
 namespace SharpEngine {
     /// <summary>
     /// Handles the main internals of the engine.
     /// </summary>
     public static class Engine {
-        #region Properties
         /// <summary>
         /// The currently active window.
         /// </summary>
@@ -44,9 +44,7 @@ namespace SharpEngine {
                 return resolutions;
             }
         }
-        #endregion
 
-        #region Events
         /// <summary>
         /// Invoked when the engine has started the main loop.
         /// </summary>
@@ -59,16 +57,12 @@ namespace SharpEngine {
         /// When the engine is stopping as a window has been closed.
         /// </summary>
         public static event EventHandler Stopping;
-        #endregion
 
-        #region Enums
         private enum HandleEventReturn {
             None,
             Quit
         }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// Run this method first! Initialises the engine.
         /// </summary>
@@ -164,6 +158,5 @@ namespace SharpEngine {
 
             return HandleEventReturn.None;
         }
-        #endregion
     }
 }

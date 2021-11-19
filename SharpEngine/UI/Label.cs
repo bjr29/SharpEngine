@@ -1,12 +1,12 @@
-﻿using static SDL2.SDL;
+﻿using System;
+using static SDL2.SDL;
 using static SDL2.SDL_ttf;
 
 namespace SharpEngine.UI {
     /// <summary>
     /// Renders text to window.
     /// </summary>
-    public class Text : IUIElement {
-        #region Properties
+    public class Label : IUIElement {
         /// <summary>
         /// The top left point of the text.
         /// </summary>
@@ -118,9 +118,7 @@ namespace SharpEngine.UI {
 
         private SDL_FRect Rect;
         private SDL_Rect CropRect;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates the text.
         /// </summary>
@@ -128,7 +126,7 @@ namespace SharpEngine.UI {
         /// <param name="content">The text to render.</param>
         /// <param name="font">The font to be applied to the text.</param>
         /// <param name="rotation">The rotation of the text.</param>
-        public Text(Vector2 position, string content, Font font, float rotation = 0) {
+        public Label(Vector2 position, string content, Font font, float rotation = 0) {
             _Font = font;
             _Position = position;
             _Content = content;
@@ -138,9 +136,7 @@ namespace SharpEngine.UI {
 
             DrawRenderables.RegisteredRenderables.Add(this);
         }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// Renders the text to the screen.
         /// </summary>
@@ -242,6 +238,5 @@ namespace SharpEngine.UI {
             _ = TTF_SizeText(font.FontPtr, text, out int x, out int y);
             return new(x, y);
         }
-        #endregion
     }
 }

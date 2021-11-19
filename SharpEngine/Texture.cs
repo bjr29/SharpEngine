@@ -1,4 +1,5 @@
 ﻿using SDL2;
+using System;
 using static SDL2.SDL;
 using static SDL2.SDL_image;
 
@@ -7,7 +8,6 @@ namespace SharpEngine {
     /// Used to show images.
     /// </summary>
     public class Texture : IDisposable {
-        #region Properties
         /// <summary>
         /// The path to the image
         /// </summary>
@@ -46,9 +46,7 @@ namespace SharpEngine {
         internal IntPtr TexturePtr { get; set; } = IntPtr.Zero;
 
         internal static IntPtr RendererPtr { get => Engine.Window.RendererPtr; }
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates the texture from the path.
         /// </summary>
@@ -79,13 +77,9 @@ namespace SharpEngine {
             _ = SDL_SetRenderTarget(RendererPtr, IntPtr.Zero);
             Drawing.SetDrawColour(originalColour);
         }
-        #endregion
 
-        #region Inherited Properties
         private bool DisposedValue { get; set; }
-        #endregion
 
-        #region Inherited Methods
         protected virtual void Dispose(bool disposing) {
             if (!DisposedValue) {
                 DisposedValue = true;
@@ -102,6 +96,5 @@ namespace SharpEngine {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
-        #endregion
     }
 }

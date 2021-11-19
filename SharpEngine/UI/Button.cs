@@ -1,9 +1,10 @@
-﻿namespace SharpEngine.UI {
+﻿using System;
+
+namespace SharpEngine.UI {
     /// <summary>
     /// A clickable UI element.
     /// </summary>
     public class Button : IUIElement {
-        #region Properties
         /// <summary>
         /// The position of the button.
         /// </summary>
@@ -53,7 +54,7 @@
         /// <summary>
         /// The text to be displayed.
         /// </summary>
-        public Text Text {
+        public Label Text {
             get => _Text;
             set {
                 _Text = value;
@@ -63,7 +64,7 @@
         /// <summary>
         /// The text to be displayed while the button is toggled.
         /// </summary>
-        public Text ToggledText {
+        public Label ToggledText {
             get => _ToggledText;
             set {
                 _ToggledText = value;
@@ -103,19 +104,15 @@
         private Vector2 _Position { get; set; }
         private Vector2 _Size { get; set; }
         private Colour _BackgroundColour { get; set; } = new(60);
-        private Text _Text { get; set; }
-        private Text _ToggledText { get; set; }
+        private Label _Text { get; set; }
+        private Label _ToggledText { get; set; }
         private bool _Toggleable { get; set; }
-        #endregion
 
-        #region Events
         /// <summary>
         /// Invoked by the button being clicked while active.
         /// </summary>
         public event EventHandler<MouseButtonEventArgs> Clicked;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates a button.
         /// </summary>
@@ -134,9 +131,7 @@
 
             DrawRenderables.RegisteredRenderables.Add(this);
         }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// The render method.
         /// </summary>
@@ -153,8 +148,7 @@
             }
         }
 
-        private Vector2 SetTextPosition(Text text) =>
-            _Position + (Size / 2) - (Text.GetTextSize(text.Content, text.Font) / 2);
-        #endregion
+        private Vector2 SetTextPosition(Label text) =>
+            _Position + (Size / 2) - (Label.GetTextSize(text.Content, text.Font) / 2);
     }
 }

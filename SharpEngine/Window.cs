@@ -1,11 +1,11 @@
-﻿using static SDL2.SDL;
+﻿using System;
+using static SDL2.SDL;
 
 namespace SharpEngine {
     /// <summary>
     /// A window which can be rendered to.
     /// </summary>
     public class Window : IDisposable {
-        #region Properties
         /// <summary>
         /// The size of the window.
         /// </summary>
@@ -40,9 +40,7 @@ namespace SharpEngine {
 
         internal IntPtr WindowPtr { get; set; }
         internal IntPtr RendererPtr { get; set; }
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates a window.
         /// </summary>
@@ -63,9 +61,7 @@ namespace SharpEngine {
         /// <param name="maximised">Should the window be started maximised.</param>
         public Window(int width = 600, int height = 400, string title = "Sharp Engine Game", bool fullscreen = false, bool maximised = false) =>
             CreateWindow(width, height, title, fullscreen, maximised);
-        #endregion
 
-        #region Methods
         private void CreateWindow(int x, int y, string title, bool fullscreen, bool maximised) {
             SDL_WindowFlags flags = SDL_WindowFlags.SDL_WINDOW_RESIZABLE;
 
@@ -94,13 +90,9 @@ namespace SharpEngine {
 
             Debug.ErrorCheckSDL();
         }
-        #endregion
 
-        #region Inherited Properties
         private bool DisposedValue { get; set; }
-        #endregion
 
-        #region Inherited Methods
         ~Window() {
             Dispose(disposing: true);
         }
@@ -118,6 +110,5 @@ namespace SharpEngine {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
-        #endregion
     }
 }

@@ -1,6 +1,7 @@
-﻿namespace SharpEngine.UI {
+﻿using System;
+
+namespace SharpEngine.UI {
     public class TextBox : IUIElement {
-        #region Properties
         /// <summary>
         /// The position of the textbox.
         /// </summary>
@@ -28,7 +29,7 @@
         /// <summary>
         /// The text to be displayed unless blank then it shows the placeholder.
         /// </summary>
-        public Text Text {
+        public Label Text {
             get {
                 if (string.IsNullOrEmpty(_Text.Content))
                     return PlaceholderText;
@@ -39,7 +40,7 @@
         /// <summary>
         /// The text displayed if Text.Content is blank.
         /// </summary>
-        public Text PlaceholderText { get; set; }
+        public Label PlaceholderText { get; set; }
 
         /// <summary>
         /// Whether the textbox can be selected.
@@ -59,23 +60,19 @@
         public bool Show { get; set; } = true;
         public int ZIndex { get; set; }
 
-        private Text _Text { get; set; }
+        private Label _Text { get; set; }
         private Colour _BackgroundColour { get; set; } = new(60);
         private Colour _TextColour { get; set; } = new(255);
 
         private DateTime LastDraw { get; set; }
         private DateTime LastEdit { get; set; }
-        #endregion
 
-        #region Events
         /// <summary>
         /// Invoked by the textbox being clicked while it's selectable.
         /// </summary>
         public event EventHandler Clicked;
         public event EventHandler Typed;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates the textbox.
         /// </summary>
@@ -103,9 +100,7 @@
 
             DrawRenderables.RegisteredRenderables.Add(this);
         }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// Renders the textbox to the screen.
         /// </summary>
@@ -115,7 +110,7 @@
             Drawing.DrawRect(Position, Size, BackgroundColour);
 
             if (Selected && (LastEdit.AddSeconds(1) >= DateTime.Now || DateTime.Now.Second % 2 == 0)) {
-                Vector2 size = Text.GetTextSize(
+                Vector2 size = Label.GetTextSize(
                     _Text.Content[..Math.Clamp(CaretPosition, 0, _Text.Content.Length)],
                     Text.Font
                 );
@@ -182,6 +177,5 @@
                 }
             }
         }
-        #endregion
     }
 }

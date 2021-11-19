@@ -9,7 +9,7 @@ namespace UITest {
         public static Button Button { get; set; }
         public static ProgressBar ProgressBar { get; set; }
         public static TextBox TextBox { get; set; }
-        public static Text Text { get; set; }
+        public static Label Text { get; set; }
 
         static void Main(string[] args) {
             Engine.Init();

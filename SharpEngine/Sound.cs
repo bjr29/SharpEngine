@@ -1,11 +1,11 @@
-﻿using static SDL2.SDL_mixer;
+﻿using System;
+using static SDL2.SDL_mixer;
 
 namespace SharpEngine {
     /// <summary>
     /// A sound that can be played.
     /// </summary>
     public class Sound {
-        #region Propeties
         /// <summary>
         /// Whether the sound has been paused or not.
         /// </summary>
@@ -29,9 +29,7 @@ namespace SharpEngine {
 
         internal IntPtr SoundPtr { get; set; }
         internal int Channel { get; private set; }
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates the sound from the path.
         /// </summary>
@@ -42,9 +40,7 @@ namespace SharpEngine {
 
             Debug.ErrorCheckSDL();
         }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// Plays the sound, with the specified amount of loops.
         /// </summary>
@@ -59,6 +55,5 @@ namespace SharpEngine {
         /// Stops the audio entirely.
         /// </summary>
         public void Stop() => _ = Mix_HaltChannel(Channel);
-        #endregion
     }
 }

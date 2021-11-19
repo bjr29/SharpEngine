@@ -1,4 +1,7 @@
-﻿namespace SharpEngine {
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace SharpEngine {
     /// <summary>
     /// The class that draws all renderable objects that impliment IRenderable.
     /// </summary>

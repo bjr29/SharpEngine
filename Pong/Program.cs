@@ -35,9 +35,9 @@ namespace Pong {
         private static int Score2 { get; set; }
 
         private static Font Font { get; set; }
-        private static Text Countdown { get; set; }
-        private static Text Score1Text { get; set; }
-        private static Text Score2Text { get; set; }
+        private static Label Countdown { get; set; }
+        private static Label Score1Text { get; set; }
+        private static Label Score2Text { get; set; }
 
         private static Random Random { get; set; } = new();
 

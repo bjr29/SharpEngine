@@ -1,11 +1,12 @@
-﻿using static SDL2.SDL;
+﻿using System;
+using System.Collections.Generic;
+using static SDL2.SDL;
 
 namespace SharpEngine {
     /// <summary>
     /// Handles the input from the user.
     /// </summary>
     public static class Input {
-        #region Properties
         /// <summary>
         /// The string of the last key down.
         /// </summary>
@@ -57,9 +58,7 @@ namespace SharpEngine {
 
         private static Dictionary<MouseButton, bool> MouseButtonsDown { get; set; } = new();
         private static Dictionary<string, bool> KeysDown { get; set; } = new();
-        #endregion
 
-        #region Events
         /// <summary>
         /// Invoked when a keyboard's key has been pushed down.
         /// </summary>
@@ -84,9 +83,7 @@ namespace SharpEngine {
         /// When the mouse wheel has been scrolled.
         /// </summary>
         public static event EventHandler<MouseWheelEventArgs> MouseWheelScrolled;
-        #endregion
 
-        #region Enums
         /// <summary>
         /// The buttons of the mouse.
         /// </summary>
@@ -112,9 +109,7 @@ namespace SharpEngine {
             /// </summary>
             X2 = 5
         }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// If the key is currently down.
         /// </summary>
@@ -203,6 +198,5 @@ namespace SharpEngine {
                     break;
             }
         }
-        #endregion
     }
 }

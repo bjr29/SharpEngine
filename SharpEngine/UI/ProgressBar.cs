@@ -1,9 +1,10 @@
-﻿namespace SharpEngine.UI {
+﻿using System;
+
+namespace SharpEngine.UI {
     /// <summary>
     /// Shows the progress of an action or the value of something.
     /// </summary>
     public class ProgressBar : IUIElement {
-        #region Properties
         /// <summary>
         /// The position of the whole progress bar.
         /// </summary>
@@ -51,9 +52,7 @@
         /// The render method.
         /// </summary>
         public int ZIndex { get; set; }
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates the progress bar.
         /// </summary>
@@ -67,9 +66,7 @@
 
             DrawRenderables.RegisteredRenderables.Add(this);
         }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// Renders the progress bar to the screen.
         /// </summary>
@@ -104,6 +101,5 @@
                 );
             }
         }
-        #endregion
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace SharpEngine {
+﻿using System;
+
+namespace SharpEngine {
     /// <summary>
     /// Stores data about the mouse's movement.
     /// </summary>

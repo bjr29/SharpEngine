@@ -1,11 +1,11 @@
-﻿using static SDL2.SDL_ttf;
+﻿using System;
+using static SDL2.SDL_ttf;
 
 namespace SharpEngine {
     /// <summary>
     /// A font that can be applied to text.
     /// </summary>
     public class Font : IDisposable {
-        #region Properties
         /// <summary>
         /// The size of the font.
         /// </summary>
@@ -35,9 +35,7 @@ namespace SharpEngine {
         private int _FontSize { get; set; }
 
         internal IntPtr FontPtr { get; set; }
-        #endregion
 
-        #region Enums
         /// <summary>
         /// The font styles that can be applied to text.
         /// </summary>
@@ -63,9 +61,7 @@ namespace SharpEngine {
             /// </summary>
             Strikethrough = TTF_STYLE_STRIKETHROUGH
         }
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Creates the font from the path.
         /// </summary>
@@ -77,13 +73,9 @@ namespace SharpEngine {
 
             Debug.ErrorCheckSDL(false);
         }
-        #endregion
 
-        #region Inherited Properties
         private bool DisposedValue { get; set; }
-        #endregion
 
-        #region Inherited Methods
         /// <summary>
         /// Disposes the object.
         /// </summary>
@@ -104,6 +96,5 @@ namespace SharpEngine {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
-        #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿using static SDL2.SDL;
+﻿using System;
+using static SDL2.SDL;
 using static SDL2.SDL_image;
 
 namespace SharpEngine {
@@ -6,7 +7,6 @@ namespace SharpEngine {
     /// Used for debuging your game.
     /// </summary>
     public static class Debug {
-        #region Properties
         /// <summary>
         /// The default background colour of the console.
         /// </summary>
@@ -80,9 +80,7 @@ namespace SharpEngine {
         /// Whether to report the fps at the specified interval from FPS_ReportInterval.
         /// </summary>
         public static bool ReportFPS { get; set; }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// Writes to the console.
         /// </summary>
@@ -171,6 +169,5 @@ namespace SharpEngine {
                 throw new SDL_Exception(error);
             }
         }
-        #endregion
     }
 }

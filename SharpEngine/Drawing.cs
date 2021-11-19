@@ -1,20 +1,18 @@
-﻿using static SDL2.SDL;
+﻿using System;
+using static SDL2.SDL;
 
 namespace SharpEngine {
     /// <summary>
     /// Allows a window to be rendered to.
     /// </summary>
     public static class Drawing {
-        #region Properties
         /// <summary>
         /// The texture that is selected to be rendered to.
         /// </summary>
         public static Texture RenderingTo { get; private set; }
 
         private static IntPtr RendererPtr { get => Engine.Window.RendererPtr; }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// Renders a rectangle.
         /// </summary>
@@ -117,6 +115,5 @@ namespace SharpEngine {
         internal static void SetDrawColour(Colour colour) {
             _ = SDL_SetRenderDrawColor(RendererPtr, colour.R, colour.G, colour.B, colour.A);
         }
-        #endregion
     }
 }
