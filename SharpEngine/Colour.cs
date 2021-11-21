@@ -128,6 +128,10 @@ namespace SharpEngine {
             return values;
         }
 
+        public override string ToString() {
+            return $"{{{R}, {G}, {B}, {A}}}";
+        }
+
         internal SDL_Color ToSDL_Color() => new() { r = R, g = G, b = B, a = A };
 
         private enum HexColour {
