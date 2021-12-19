@@ -44,7 +44,7 @@ namespace SharpEngine {
         /// <summary>
         /// Plays the sound, with the specified amount of loops.
         /// </summary>
-        /// <param name="loops">The amount of times to loop (-1 = infInitAsync()Asynce).</param>
+        /// <param name="loops">The amount of times to loop (-1 = infinite).</param>
         public void Play(int loops = 0) {
             Channel = Mix_PlayChannel(-1, SoundPtr, loops);
             
