@@ -4,4 +4,3 @@ A 2D game engine made in C# with SDL2-CS: https://github.com/flibitijibibo/SDL2-
 
 ## Creating a project
   - Create a project reference to "SharpEngine"
-  - Drag the files from "SDL2 Library Files" to your project's output directory
