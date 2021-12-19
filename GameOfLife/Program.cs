@@ -8,20 +8,18 @@ namespace SharpEngineGOL {
         private static int CellSize { get; set; } = 8;
 
         static void Main(string[] args) {
-            Engine.Init();
-
-            Engine.Window = new(title: "Sharp Engine Test - GOL");
-
             Engine.Ready += Ready;
             Engine.Draw += Draw;
             Input.MouseButtonDown += MouseButtonDown;
             Input.KeyDown += KeyDown;
             Input.MouseWheelScrolled += ScrollWheel;
 
-            Engine.Start();
+            Engine.Init();
         }
 
         private static void Ready(object sender, EventArgs e) {
+            Engine.Window = new(title: "Sharp Engine Test - GOL");
+
             Engine.MaxFPS = 10;
             Engine.EnforceFPSCap = true;
         }

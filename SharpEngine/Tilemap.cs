@@ -67,8 +67,6 @@ namespace SharpEngine {
 
                 tileSprite.Draw();
             }
-
-            DrawRenderables.RegisteredRenderables.Remove(tileSprite);
         }
     }
 }

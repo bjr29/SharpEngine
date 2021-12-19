@@ -24,7 +24,7 @@ namespace SharpEngine {
         /// <summary>
         /// Modifies the colours of the texture.
         /// </summary>
-        public Colour ColourMod { 
+        public Colour ColourMod {
             get {
                 _ = SDL_GetTextureColorMod(TexturePtr, out byte r, out byte g, out byte b);
                 _ = SDL_GetTextureAlphaMod(TexturePtr, out byte a);
@@ -38,6 +38,16 @@ namespace SharpEngine {
                 _ = SDL_SetTextureAlphaMod(TexturePtr, value.A);
 
                 Debug.ErrorCheckSDL();
+            }
+        }
+
+        /// <summary>
+        /// Gets the texture's size.
+        /// </summary>
+        public IntVector2 Size {
+            get {
+                _ = SDL_QueryTexture(TexturePtr, out _, out _, out int width, out int height);
+                return new(width, height);
             }
         }
 
@@ -58,7 +68,7 @@ namespace SharpEngine {
         /// <summary>
         /// Creates an empty texture.
         /// </summary>
-        public Texture(IntVector2 size, Colour colour) {
+        public Texture(IntVector2 size, Colour colour, bool setRenderTarget = false) {
             TexturePtr = SDL_CreateTexture(
                 RendererPtr,
                 SDL_PIXELFORMAT_RGBA8888,
@@ -69,17 +79,23 @@ namespace SharpEngine {
 
             Colour originalColour = Engine.Window.BackgroundColour;
 
-            _ = SDL_SetRenderTarget(RendererPtr, TexturePtr);
+            Drawing.RenderToTarget(this);
 
             Drawing.SetDrawColour(colour);
             Drawing.DrawRect(new(), size, colour);
 
-            _ = SDL_SetRenderTarget(RendererPtr, IntPtr.Zero);
+            if (!setRenderTarget) {
+                Drawing.RenderToScreen();
+            }
+
             Drawing.SetDrawColour(originalColour);
         }
 
         private bool DisposedValue { get; set; }
 
+        /// <summary>
+        /// Disposes the texture.
+        /// </summary>
         protected virtual void Dispose(bool disposing) {
             if (!DisposedValue) {
                 DisposedValue = true;
@@ -88,10 +104,16 @@ namespace SharpEngine {
             }
         }
 
+        /// <summary>
+        /// Disposes the texture.
+        /// </summary>
         ~Texture() {
             Dispose(disposing: false);
         }
 
+        /// <summary>
+        /// Disposes the texture.
+        /// </summary>
         public void Dispose() {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);

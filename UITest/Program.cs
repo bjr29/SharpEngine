@@ -12,16 +12,14 @@ namespace UITest {
         public static Label Text { get; set; }
 
         static void Main(string[] args) {
-            Engine.Init();
-
-            Engine.Window = new(title: "Sharp Engine Test - UI Test");
-
             Engine.Ready += Engine_Ready;
 
-            Engine.Start();
+            Engine.Init();
         }
 
         private static void Engine_Ready(object sender, EventArgs e) {
+            Engine.Window = new(title: "Sharp Engine Test - UI Test");
+
             Font = new(@"Fonts\OpenSans-SemiBold.ttf", 14);
 
             Button = new(new(340, 60), new(50, 50), Font, "Button");

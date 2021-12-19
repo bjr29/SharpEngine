@@ -9,17 +9,15 @@ namespace MovingPlayer {
         private static Sprite Player { get; set; }
 
         static void Main(string[] args) {
-            Engine.Init();
-
-            Engine.Window = new(title: "Sharp Engine Test - Moving Player");
-
             Engine.Ready += Engine_Ready;
             Engine.Draw += Engine_Draw;
 
-            Engine.Start();
+            Engine.Init();
         }
 
         private static void Engine_Ready(object sender, EventArgs e) {
+            Engine.Window = new(title: "Sharp Engine Test - Moving Player");
+
             Engine.EnforceFPSCap = true;
             Engine.MaxFPS = 60;
 

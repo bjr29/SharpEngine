@@ -39,7 +39,7 @@ namespace SharpEngine {
         }
 
         /// <summary>
-        /// Short-hand for creating a new colour.
+        /// Creates a new colour.
         /// </summary>
         /// <param name="all">The combination of all red, green and blue.</param>
         /// <param name="a">Alpha (opacity)</param>
@@ -50,6 +50,10 @@ namespace SharpEngine {
             A = a;
         }
 
+        /// <summary>
+        /// Creates a new colour.
+        /// </summary>
+        /// <param name="hex">Hex Value e.g. #ff0000</param>
         public Colour(string hex) {
             R = 255;
             G = 255;
@@ -100,7 +104,7 @@ namespace SharpEngine {
             }
         }
 
-        public static byte ParseHexSymbol(char hexSymbol) {
+        private static byte ParseHexSymbol(char hexSymbol) {
             bool hasParsedInt = byte.TryParse(hexSymbol.ToString(), out byte intParse);
 
             if (hasParsedInt) {
@@ -110,7 +114,7 @@ namespace SharpEngine {
             return (byte) Enum.Parse<HexColour>(hexSymbol.ToString());
         }
 
-        public static byte[] ParseHexValue(string hexValue) {
+        private static byte[] ParseHexValue(string hexValue) {
             if (hexValue[0] == '#') {
                 hexValue = hexValue[1..];
             }
@@ -128,6 +132,9 @@ namespace SharpEngine {
             return values;
         }
 
+        /// <summary>
+        /// Converts the colour to a string.
+        /// </summary>
         public override string ToString() {
             return $"{{{R}, {G}, {B}, {A}}}";
         }

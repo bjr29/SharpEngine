@@ -93,10 +93,16 @@ namespace SharpEngine {
 
         private bool DisposedValue { get; set; }
 
+        /// <summary>
+        /// Disposes the window.
+        /// </summary>
         ~Window() {
             Dispose(disposing: true);
         }
 
+        /// <summary>
+        /// Disposes the window.
+        /// </summary>
         protected virtual void Dispose(bool disposing) {
             if (!DisposedValue) {
                 SDL_DestroyRenderer(RendererPtr);
@@ -106,6 +112,9 @@ namespace SharpEngine {
             }
         }
 
+        /// <summary>
+        /// Disposes the window.
+        /// </summary>
         public void Dispose() {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);

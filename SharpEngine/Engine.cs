@@ -3,6 +3,15 @@ using static SDL2.SDL_image;
 using static SDL2.SDL_ttf;
 using static SDL2.SDL_mixer;
 using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.IO;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text;
 
 namespace SharpEngine {
     /// <summary>
@@ -45,6 +54,8 @@ namespace SharpEngine {
             }
         }
 
+        private const string RepoUrl = "https://api.github.com/repos/bjr29/SharpEngine/git/trees/7efe2f5570ecd9c6ac3e4b6f828b6d2cf064a220";
+
         /// <summary>
         /// Invoked when the engine has started the main loop.
         /// </summary>
@@ -64,9 +75,11 @@ namespace SharpEngine {
         }
 
         /// <summary>
-        /// Run this method first! Initialises the engine.
+        /// Run this method after assigning the events. Initialises the engine.
         /// </summary>
         public static void Init() {
+            SetupSDLAsync().Wait();
+
             _ = SDL_Init(SDL_INIT_EVERYTHING);
             _ = IMG_Init(IMG_InitFlags.IMG_INIT_JPG | IMG_InitFlags.IMG_INIT_PNG);
             _ = TTF_Init();
@@ -77,14 +90,42 @@ namespace SharpEngine {
             _ = Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 4096);
 
             Debug.ErrorCheckSDL();
+
+            Ready?.Invoke(null, new());
+            Start();
         }
 
-        /// <summary>
-        /// Starts the main loop for the engine.
-        /// </summary>
-        public static void Start() {
-            Ready?.Invoke(null, new());
+        private static async Task SetupSDLAsync() {
+            HttpClient httpClient = new();
 
+            httpClient.DefaultRequestHeaders.UserAgent.Add(
+                new ProductInfoHeaderValue("MyApplication", "1")
+            );
+
+            string contentsJson = await httpClient.GetStringAsync(RepoUrl);
+            JsonDocument json = JsonSerializer.Deserialize<JsonDocument>(contentsJson);
+
+            foreach (JsonElement file in json.RootElement.GetProperty("tree").EnumerateArray()) {
+                string fileType = file.GetProperty("type").GetString();
+                string fileName = file.GetProperty("path").GetString();
+
+                if (fileType != "blob" || File.Exists(fileName)) {
+                    continue;
+                }
+
+                Debug.Log($"Downloading: {fileName}");
+
+                string downloadUrl = file.GetProperty("url").GetString();
+
+                string fileContents = await httpClient.GetStringAsync(downloadUrl);
+                JsonDocument fileJson = JsonSerializer.Deserialize<JsonDocument>(fileContents);
+
+                byte[] fileContent = Convert.FromBase64String(fileJson.RootElement.GetProperty("content").GetString());
+                File.WriteAllBytes(fileName, fileContent);
+            }
+        }
+
+        private static void Start() {
             DateTime frameStart = DateTime.Now;
             DateTime nextDebugInterval = DateTime.Now.AddSeconds(Debug.FPS_ReportInterval);
 

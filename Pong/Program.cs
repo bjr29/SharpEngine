@@ -42,17 +42,15 @@ namespace Pong {
         private static Random Random { get; set; } = new();
 
         static void Main(string[] args) {
-            Engine.Init();
-
-            Engine.Window = new(title: "Sharp Engine Test - Pong");
-
             Engine.Ready += Engine_Ready;
             Engine.Draw += Engine_Draw;
 
-            Engine.Start();
+            Engine.Init();
         }
 
         private static void Engine_Ready(object sender, EventArgs e) {
+            Engine.Window = new();
+
             Engine.MaxFPS = 60;
             Engine.EnforceFPSCap = true;
 

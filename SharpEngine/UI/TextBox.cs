@@ -1,6 +1,9 @@
 ﻿using System;
 
 namespace SharpEngine.UI {
+    /// <summary>
+    /// Allows for text to be inputted by the user.
+    /// </summary>
     public class TextBox : IUIElement {
         /// <summary>
         /// The position of the textbox.
@@ -21,6 +24,10 @@ namespace SharpEngine.UI {
             }
             set => _BackgroundColour = value;
         }
+
+        /// <summary>
+        /// Unused.
+        /// </summary>
         [Obsolete("Not used")] public Colour ForegroundColour { get; set; }
         /// <summary>
         /// The colour of the background while selected.
@@ -57,7 +64,13 @@ namespace SharpEngine.UI {
         /// </summary>
         public bool Selected { get; set; }
 
+        /// <summary>
+        /// Should be rendered by DrawRenderables.
+        /// </summary>
         public bool Show { get; set; } = true;
+        /// <summary>
+        /// The order to be rendered in, only applied by DrawRenderables.
+        /// </summary>
         public int ZIndex { get; set; }
 
         private Label _Text { get; set; }
@@ -71,6 +84,9 @@ namespace SharpEngine.UI {
         /// Invoked by the textbox being clicked while it's selectable.
         /// </summary>
         public event EventHandler Clicked;
+        /// <summary>
+        /// Whether the user has just typed in the textbox.
+        /// </summary>
         public event EventHandler Typed;
 
         /// <summary>

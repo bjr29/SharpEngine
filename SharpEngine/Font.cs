@@ -88,10 +88,16 @@ namespace SharpEngine {
             }
         }
 
+        /// <summary>
+        /// Disposes the font.
+        /// </summary>
         ~Font() {
             Dispose(disposing: false);
         }
 
+        /// <summary>
+        /// Disposes the font.
+        /// </summary>
         public void Dispose() {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);

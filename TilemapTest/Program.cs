@@ -8,16 +8,14 @@ namespace UITest {
         public static Tilemap Tilemap { get; set; } = new();
 
         static void Main(string[] args) {
-            Engine.Init();
-
-            Engine.Window = new();
-
             Engine.Ready += Ready;
 
-            Engine.Start();
+            Engine.Init();
         }
 
         private static void Ready(object? sender, EventArgs e) {
+            Engine.Window = new();
+
             Tilemap.Tileset = new() {
                 new(ImagesPath + "1.png") {
                     ColourMod = new(255, 0, 0)
