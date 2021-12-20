@@ -4,23 +4,21 @@ A 2D game engine made in C# with SDL2-CS: https://github.com/flibitijibibo/SDL2-
 
 ## Getting Started
 ```C#
-static void Main(string[] args) {
-  // Assign a couple of events
-  Engine.Ready += Engine_Ready;
-  Engine.Draw += Engine_Draw;
+// Assign a couple of events
+Engine.Ready += Engine_Ready;
+Engine.Draw += Engine_Draw;
 
-  // Starts the game engine and sets up the app if neccessary
-  Engine.Init();
-}
+// Starts the game engine and sets up the app if neccessary
+Engine.Init();
 
-private static void Engine_Ready(object sender, EventArgs e) {
+static void Engine_Ready(object sender, EventArgs e) {
   // Create the window
   Engine.Window = new();
   
   // Do stuff before the first frame
 }
 
-private static void Engine_Draw(object sender, EventArgs e) {
+static void Engine_Draw(object sender, EventArgs e) {
   // Do stuff every frame
 }
 ```
