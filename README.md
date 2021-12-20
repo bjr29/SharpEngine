@@ -2,5 +2,25 @@
 # Sharp Engine
 A 2D game engine made in C# with SDL2-CS: https://github.com/flibitijibibo/SDL2-CS
 
-## Creating a project
-  - Create a project reference to "SharpEngine"
+## Getting Started
+```C#
+static void Main(string[] args) {
+  // Create the window
+  Engine.Window = new();
+
+  // Assign a couple of events
+  Engine.Ready += Engine_Ready;
+  Engine.Draw += Engine_Draw;
+
+  // Starts the game engine and sets up the app if neccessary
+  Engine.Init();
+}
+
+private static void Engine_Ready(object sender, EventArgs e) {
+  // Do stuff before the first frame
+}
+
+private static void Engine_Draw(object sender, EventArgs e) {
+  // Do stuff every frame
+}
+```
