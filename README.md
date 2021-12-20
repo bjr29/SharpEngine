@@ -5,9 +5,6 @@ A 2D game engine made in C# with SDL2-CS: https://github.com/flibitijibibo/SDL2-
 ## Getting Started
 ```C#
 static void Main(string[] args) {
-  // Create the window
-  Engine.Window = new();
-
   // Assign a couple of events
   Engine.Ready += Engine_Ready;
   Engine.Draw += Engine_Draw;
@@ -17,6 +14,9 @@ static void Main(string[] args) {
 }
 
 private static void Engine_Ready(object sender, EventArgs e) {
+  // Create the window
+  Engine.Window = new();
+  
   // Do stuff before the first frame
 }
 
