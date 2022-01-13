@@ -156,36 +156,29 @@ namespace Pong {
         }
 
         private static bool HasHitPaddle() {
-            if (
-                    (LeftPaddlePosition.X + PaddleSize.X >= BallPosition.X
+            return  (LeftPaddlePosition.X + PaddleSize.X >= BallPosition.X
                     && LeftPaddlePosition.Y <= BallPosition.Y + BallSize.Y
                     && LeftPaddlePosition.Y + PaddleSize.Y >= BallPosition.Y)
                     ||
                     (RightPaddlePosition.X <= BallPosition.X + BallSize.X
                     && RightPaddlePosition.Y <= BallPosition.Y + BallSize.Y
-                    && RightPaddlePosition.Y + PaddleSize.Y >= BallPosition.Y)) {
-                return true;
-            }
-
-            return false;
+                    && RightPaddlePosition.Y + PaddleSize.Y >= BallPosition.Y);
         }
 
         private static bool HasHitBounds() {
-            if (BallPosition.Y <= 30 || BallPosition.Y + BallSize.Y >= 370) {
-                return true;
-            }
-
-            return false;
+            return BallPosition.Y <= 30 || BallPosition.Y + BallSize.Y >= 370;
         }
 
         private static void Reset() {
             float x = 1;
-            if (Random.Next(0, 2) == 0)
+            if (Random.Next(0, 2) == 0) {
                 x = -1;
+            }
 
             float y = (float) Random.NextDouble();
-            if (Random.Next(0, 2) == 0)
+            if (Random.Next(0, 2) == 0) { 
                 y *= -1;
+            }
 
             BallDirection = new Vector2(x, y);
 
