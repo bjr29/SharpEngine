@@ -19,6 +19,7 @@ namespace SharpEngineGOL {
 
         private static void Ready(object sender, EventArgs e) {
             Engine.Window = new(title: "Sharp Engine Test - GOL");
+            Engine.Window.BackgroundColour = new(50);
             
             Engine.MaxFPS = 10;
             Engine.EnforceFPSCap = true;
@@ -39,7 +40,7 @@ namespace SharpEngineGOL {
                             world[x, y] = false;
 
                     if (World[x, y])
-                        Drawing.DrawRect(new IntVector2(x, y) * cellSize, new IntVector2(1, 1) * cellSize, new(255));
+                        Drawing.DrawRect(new IntVector2(x, y) * cellSize, new IntVector2(1, 1) * cellSize, new(150));
                 }
             }
 
